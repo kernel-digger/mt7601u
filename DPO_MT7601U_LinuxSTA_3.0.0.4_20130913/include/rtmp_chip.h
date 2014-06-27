@@ -607,7 +607,10 @@ struct _RTMP_CHIP_CAP_ {
 	INT32	CurrentTemperature;					// (BBP_R49 - Ref25C) * offset
 #endif /* MT7601 */
 	/* ---------------------------- packet ---------------------------------- */
+	/* MT7601_Init÷–≥ı ºªØ */
+	/* 20 */
 	UINT8 TXWISize;
+	/* 24 */
 	UINT8 RXWISize;
 
 	/* ---------------------------- others ---------------------------------- */

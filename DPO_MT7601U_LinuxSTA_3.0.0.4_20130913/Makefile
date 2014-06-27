@@ -12,8 +12,10 @@ ifeq ($(CHIPSET),)
 CHIPSET = 7601U
 endif
 
+# 取字符串中的第一个单词
 MODULE = $(word 1, $(CHIPSET))
 
+# 系统抽象层
 #OS ABL - YES or NO
 OSABL = NO
 

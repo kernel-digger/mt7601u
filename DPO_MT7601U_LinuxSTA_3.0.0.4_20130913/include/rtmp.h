@@ -3655,9 +3655,13 @@ typedef struct _RX_BLK_
 	RXFCE_INFO *pRxFceInfo;
 #endif /* RLT_MAC */
 	RXWI_STRUC *pRxWI;
+	/* 指向80211头 */
 	PHEADER_802_11 pHeader;
+	/* 指向skb */
 	PNDIS_PACKET pRxPacket;
+	/* 指向80211头开始位置 */
 	UCHAR *pData;
+	/* 数据长度 RxWIMPDUByteCnt */
 	USHORT DataSize;
 	USHORT Flags;
 	UCHAR UserPriority;	/* for calculate TKIP MIC using */

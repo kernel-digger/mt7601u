@@ -83,6 +83,7 @@ typedef union GNU_PACKED _TXINFO_STRUC{
 /*
 	RXWI wireless information format, in PBF. invisible in driver.
 */
+/* usb送过来的数据,80211头前面的24个字节 */
 typedef	union GNU_PACKED _RXWI_STRUC {
 #ifdef RLT_MAC
 #ifdef MT7601

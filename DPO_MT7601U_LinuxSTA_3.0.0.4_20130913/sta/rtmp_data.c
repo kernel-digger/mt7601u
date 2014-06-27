@@ -1435,6 +1435,7 @@ VOID STAHandleRxControlFrame(
 	case SUBTYPE_BLOCK_ACK_REQ:
 #ifdef DOT11_N_SUPPORT
 		{
+			/* 把802.3报文往上层传递 */
 			retStatus = CntlEnqueueForRecv(pAd, pRxWI->RxWIWirelessCliID, (pRxWI->RxWIMPDUByteCnt), (PFRAME_BA_REQ) pHeader);
 			status = (retStatus == TRUE) ? NDIS_STATUS_SUCCESS : NDIS_STATUS_FAILURE;
 		}
@@ -1481,6 +1482,7 @@ BOOLEAN STARxDoneInterruptHandle(RTMP_ADAPTER *pAd, BOOLEAN argc)
 	HEADER_802_11 *pHeader;
 	UCHAR *pData;
 	RX_BLK RxBlk;
+	/* 24字节 */
 	UINT8 RXWISize = pAd->chipCap.RXWISize;
 #ifdef RLT_MAC
 	RXFCE_INFO *pFceInfo;
@@ -1522,8 +1524,11 @@ BOOLEAN STARxDoneInterruptHandle(RTMP_ADAPTER *pAd, BOOLEAN argc)
 		pFceInfo = RxBlk.pRxFceInfo;
 #endif /* RLT_MAC */
 		pRxInfo = RxBlk.pRxInfo;
+		/* 取skb->data */
 		pData = GET_OS_PKT_DATAPTR(pRxPacket);
+		/* 24字节无线信息头 */
 		pRxWI = (RXWI_STRUC *)pData;
+		/* 取80211报文头 */
 		pHeader = (PHEADER_802_11) (pData + RXWISize);
 
 
@@ -1593,9 +1598,14 @@ if (0){
 		INC_COUNTER64(pAd->WlanCounters.ReceivedFragmentCount);
 #endif /* STATS_COUNT_SUPPORT */
 
+		/* ack - 10字节
+		   cts - 10字节
+		*/
 		if (pRxWI->RxWIMPDUByteCnt < 14)
 		{
 			Status = NDIS_STATUS_FAILURE;
+			/* 这里有内存泄露的bug,需要释放skb */
+			/* RELEASE_NDIS_PACKET(pAd, pRxPacket, NDIS_STATUS_SUCCESS); */
 			continue;
 		}
 

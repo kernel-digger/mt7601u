@@ -320,6 +320,7 @@ PNDIS_PACKET RtmpOSNetPktAlloc(VOID *dummy, int size)
 	return ((PNDIS_PACKET) skb);
 }
 
+/* 分配skb */
 PNDIS_PACKET RTMP_AllocateFragPacketBuffer(VOID *dummy, ULONG len)
 {
 	struct sk_buff *pkt;
@@ -333,6 +334,7 @@ PNDIS_PACKET RTMP_AllocateFragPacketBuffer(VOID *dummy, ULONG len)
 
 	if (pkt) {
 		MEM_DBG_PKT_ALLOC_INC(pkt);
+		/* 在cb[]中标记skb来源 */
 		RTMP_SET_PACKET_SOURCE(OSPKT_TO_RTPKT(pkt), PKTSRC_NDIS);
 	}
 
@@ -811,9 +813,12 @@ INT32 ralinkrate[] = {
 UINT32 RT_RateSize = sizeof (ralinkrate);
 
 void send_monitor_packets(IN PNET_DEV pNetDev,
+				/* skb */
 			  IN PNDIS_PACKET pRxPacket,
 			  IN PHEADER_802_11 pHeader,
+				/* 80211头起始位置 */
 			  IN UCHAR * pData,
+				/* RxWIMPDUByteCnt */
 			  IN USHORT DataSize,
 			  IN UCHAR L2PAD,
 			  IN UCHAR PHYMODE,
@@ -842,8 +847,11 @@ void send_monitor_packets(IN PNET_DEV pNetDev,
 	MEM_DBG_PKT_FREE_INC(pRxPacket);
 
 
+	/* 取skb指针 */
 	pOSPkt = RTPKT_TO_OSPKT(pRxPacket);	/*pRxBlk->pRxPacket); */
 	pOSPkt->dev = pNetDev;	/*get_netdev_from_bssid(pAd, BSS0); */
+
+	/* 处理80211数据帧,pData指针后移到80211头后面 */
 	if (pHeader->FC.Type == BTYPE_DATA) {
 		DataSize -= LENGTH_802_11;
 		if ((pHeader->FC.ToDs == 1) && (pHeader->FC.FrDs == 1))
@@ -877,13 +885,21 @@ void send_monitor_packets(IN PNET_DEV pNetDev,
 	}
 
 	if (DataSize < pOSPkt->len) {
+		/* 截断 */
 		skb_trim(pOSPkt, DataSize);
 	} else {
+		/* 在尾部增加 */
 		skb_put(pOSPkt, (DataSize - pOSPkt->len));
 	}
 
+	/* 移动skb->data指针到80211头起始位置 */
 	if ((pData - pOSPkt->data) > 0) {
+		/* 这里这个skb_put会导致crash
+		   (pData - pOSPkt->data)的长度会有可能大于skb_tailroom(pOSPkt)
+		   需要加个判断
+		*/
 		skb_put(pOSPkt, (pData - pOSPkt->data));
+		/* 从头部减去数据 */
 		skb_pull(pOSPkt, (pData - pOSPkt->data));
 	}
 

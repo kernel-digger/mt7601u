@@ -1212,6 +1212,12 @@ Return Value:
 Note:
 ========================================================================
 */
+
+/*
+返回skb
+skb->data包含RXWI_STRUC的大小RXWISize24字节的头
+skb->len为ThisFrameLen = (24 + RxWIMPDUByteCnt + 6)
+*/
 PNDIS_PACKET GetPacketFromRxRing(
 	IN RTMP_ADAPTER *pAd,
 	OUT RX_BLK *pRxBlk,
@@ -1234,16 +1240,32 @@ PNDIS_PACKET GetPacketFromRxRing(
 	if ((pRxContext->Readable == FALSE) || (pRxContext->InUse == TRUE))
 		return NULL;
 
+/*
+       0
+-------------------------------------------------------------------------------
+       ^  4  ^  4  ^              ^                                       ^
+       |     |     | ThisFrameLen |                                       |
+ pAd->ReadPosition                |                     pRxContext->BulkInOffset
+                                  ^
+                                  | ...
+                           pAd->ReadPosition
+*/
+
+	/* 长度检查 */
 	RxBufferLength = pRxContext->BulkInOffset - pAd->ReadPosition;
+	/* 4 + 24 + 4 = 32 */
 	valid_len = RXDMA_FIELD_SIZE + RXWISize + sizeof(RXINFO_STRUC);
 #ifdef RLT_MAC
+	/* + 4 */
 	valid_len += sizeof(RXFCE_INFO);
 #endif /* RLT_MAC */
+	/* 最小长度36 */
 	if (RxBufferLength < valid_len)
 	{
 		goto label_null;
 	}
 	
+	/* 起始数据 */
 	pData = &pRxContext->TransferBuffer[pAd->ReadPosition];
 //+++Add by shiang for debug
 if (0) {
@@ -1259,6 +1281,7 @@ if (0) {
 								pAd->NextRxBulkInReadIndex, ThisFrameLen, pRxContext->BulkInOffset));     
 		goto label_null;
 	}   
+	/* 长度必须是4的倍数 */
 	if ((ThisFrameLen & 0x3) != 0)
 	{
 		DBGPRINT(RT_DEBUG_ERROR, ("BIRIdx(%d): RXDMALen not multiple of 4.[%ld], BulkInBufLen = %ld)\n", 
@@ -1310,6 +1333,7 @@ if (0) {
 		goto label_null;
 	}
 
+	/* 复制数据到skb->data */
 	/* copy the rx packet*/
 	RTMP_USB_PKT_COPY(get_netdev_from_bssid(pAd, BSS0), pNetPkt, ThisFrameLen, pData);
 

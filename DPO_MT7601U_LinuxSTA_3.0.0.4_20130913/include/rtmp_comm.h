@@ -337,6 +337,7 @@ typedef struct _LIST_RESOURCE_OBJ_ENTRY
 
 
 /* ======================== Packet ========================================== */ 
+/* 2frame control + 2duration + 6addr1 + 6addr2 + 6addr3 + 2sequence = 24 */
 #define LENGTH_802_11               24
 #define LENGTH_802_11_AND_H         30
 #define LENGTH_802_11_CRC_H         34
@@ -449,6 +450,7 @@ P80211ENUM_truth_true = 0x01
 
 
 /* Definition from madwifi */
+/* 12×Ö½Ú */
 typedef struct {
         UINT32 did;
         UINT16 status;
@@ -456,6 +458,7 @@ typedef struct {
         UINT32 data;
 } p80211item_uint32_t;
 
+/* 144×Ö½Ú */
 typedef struct {
         UINT32 msgcode;
         UINT32 msglen;

@@ -602,6 +602,7 @@ struct os_cookie {
 	UINT32		     pAd_va;
 #endif /* WORKQUEUE_BH */
 
+	/* 小任务结构struct tasklet_struct */
 	RTMP_NET_TASK_STRUCT rx_done_task;
 	RTMP_NET_TASK_STRUCT cmd_rsp_event_task;
 	RTMP_NET_TASK_STRUCT mgmt_dma_done_task;

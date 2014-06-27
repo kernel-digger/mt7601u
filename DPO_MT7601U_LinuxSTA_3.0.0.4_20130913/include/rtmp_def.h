@@ -527,6 +527,7 @@ enum WIFI_MODE{
 
 #define MAX_NUM_OF_ACL_LIST				MAX_NUMBER_OF_ACL
 
+/* ×î´óÖÕ¶ËÊý */
 #define MAX_LEN_OF_MAC_TABLE            MAX_NUMBER_OF_MAC	/* if MAX_MBSSID_NUM is 8, this value can't be larger than 211 */
 
 /*#if MAX_LEN_OF_MAC_TABLE>MAX_AVAILABLE_CLIENT_WCID */

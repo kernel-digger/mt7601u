@@ -29,6 +29,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+/* 把二进制文件转换为一个头文件,为一个字符数组
+例如MT7601_FirmwareImage
+*/
 int main(int argc ,char *argv[])
 {
     FILE *infile, *outfile;	

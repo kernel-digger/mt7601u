@@ -214,6 +214,10 @@ static int rtusb_probe (struct usb_interface *intf,
 						const USB_DEVICE_ID *id);
 static void rtusb_disconnect(struct usb_interface *intf);
 
+/*
+获取usb接口的配置
+保存到@pAd中
+*/
 static BOOLEAN USBDevConfigInit(
 	IN struct usb_device 	*dev,
 	IN struct usb_interface *intf, 
@@ -665,6 +669,7 @@ static int rt2870_probe(
 /*RtmpDevInit============================================= */
 	/* Allocate RTMP_ADAPTER adapter structure */
 /*	handle = kmalloc(sizeof(struct os_cookie), GFP_KERNEL); */
+	/* 分配os_cookie空间 */
 	os_alloc_mem(NULL, (UCHAR **)&handle, sizeof(struct os_cookie));
 	if (handle == NULL)
 	{

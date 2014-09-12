@@ -1056,6 +1056,7 @@ typedef struct _MLME_STRUCT {
 /***************************************************************************
   *	802.11 N related data structures
   **************************************************************************/
+/* 结构体占16个字节 */
 struct reordering_mpdu {
 	struct reordering_mpdu *next;
 	PNDIS_PACKET pPacket;	/* coverted to 802.3 frame */

@@ -708,6 +708,7 @@ VOID MT7601_WLAN_ChipOnOff(
 	IN BOOLEAN bOn,
 	IN BOOLEAN bResetWLAN)
 {
+	/* 读取寄存器的临时变量 */
 	WLAN_FUN_CTRL_STRUC WlanFunCtrl = {.word=0};
 	int RET;
 
@@ -725,6 +726,8 @@ VOID MT7601_WLAN_ChipOnOff(
 	RTMP_IO_READ32(pAd, WLAN_FUN_CTRL, &WlanFunCtrl.word);
 	DBGPRINT(RT_DEBUG_INFO, ("==>%s(): OnOff:%d, pAd->WlanFunCtrl:0x%x, Reg-WlanFunCtrl=0x%x\n",
 				__FUNCTION__, bOn, pAd->WlanFunCtrl.word, WlanFunCtrl.word));
+
+	/* ==>MT7601_WLAN_ChipOnOff(): OnOff:1, pAd->WlanFunCtrl:0x0, Reg-WlanFunCtrl=0xff200003 */
 
 	if (bResetWLAN == TRUE)
 	{
@@ -766,6 +769,7 @@ VOID MT7601_WLAN_ChipOnOff(
 		DISABLE_WLAN_FUN(WlanFunCtrl);
 	}
 
+	/* WlanFunCtrl.word = 0xff200003 */
 	DBGPRINT(RT_DEBUG_TRACE, ("WlanFunCtrl.word = 0x%x\n", WlanFunCtrl.word));
 	RTMP_IO_WRITE32(pAd, WLAN_FUN_CTRL, WlanFunCtrl.word);	
 	RTMPusecDelay(20);
@@ -829,6 +833,7 @@ VOID MT7601_WLAN_ChipOnOff(
 		("<== %s():  pAd->WlanFunCtrl.word = 0x%x, Reg->WlanFunCtrl=0x%x!\n",
 		__FUNCTION__, pAd->WlanFunCtrl.word, WlanFunCtrl.word));
 
+	/* <== MT7601_WLAN_ChipOnOff():  pAd->WlanFunCtrl.word = 0xff200003, Reg->WlanFunCtrl=0xff200003! */
 	
 #ifdef RTMP_MAC_USB
 	if (IS_USB_INF(pAd)) {
@@ -3227,6 +3232,9 @@ Return Value:
 
 Note:
 ========================================================================
+*/
+/*
+芯片相关的初始化
 */
 VOID MT7601_Init(RTMP_ADAPTER *pAd)
 {

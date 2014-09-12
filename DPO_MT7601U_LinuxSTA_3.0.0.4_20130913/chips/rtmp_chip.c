@@ -760,6 +760,10 @@ UINT32 SetHWAntennaDivsersity(
 
 
 
+/*
+ASICÊÇApplication Specific Integrated CircuitµÄÓ¢ÎÄËõĞ´
+
+*/
 INT WaitForAsicReady(
 	IN RTMP_ADAPTER *pAd)
 {

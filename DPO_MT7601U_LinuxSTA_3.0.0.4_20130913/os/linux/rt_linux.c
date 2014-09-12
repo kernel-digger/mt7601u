@@ -198,6 +198,13 @@ void RTMP_GetCurrentSystemTick(ULONG *pNow)
 
 /* pAd MUST allow to be NULL */
 
+/*
+NDIS是Network Driver Interface Specification，即网络驱动接口规范
+
+分配内存
+@mem: *mem返回分配发空间
+@size: 待分配的空间大小
+*/
 NDIS_STATUS os_alloc_mem(
 	IN VOID *pReserved,
 	OUT UCHAR **mem,
@@ -1721,6 +1728,10 @@ static struct ethtool_ops RALINK_Ethtool_Ops = {
 #endif
 
 
+/*
+设置操作函数
+注册接口
+*/
 int RtmpOSNetDevAttach(
 	IN UCHAR OpMode,
 	IN PNET_DEV pNetDev,

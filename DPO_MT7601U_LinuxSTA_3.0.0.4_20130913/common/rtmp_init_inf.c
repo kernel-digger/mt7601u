@@ -36,7 +36,7 @@ NDIS_STATUS WriteDatThread(RTMP_ADAPTER *pAd);
 #endif /* CONFIG_STA_SUPPORT */
 
 #ifdef LINUX
-#ifdef OS_ABL_FUNC_SUPPORT
+#if 0//def OS_ABL_FUNC_SUPPORT
 /* Utilities provided from NET module */
 RTMP_NET_ABL_OPS RtmpDrvNetOps, *pRtmpDrvNetOps = &RtmpDrvNetOps;
 RTMP_PCI_CONFIG RtmpPciConfig, *pRtmpPciConfig = &RtmpPciConfig;
@@ -108,6 +108,7 @@ VOID RtmpDrvOpsInit(
 }
 
 RTMP_BUILD_DRV_OPS_FUNCTION_BODY
+;
 
 #endif /* OS_ABL_FUNC_SUPPORT */
 #endif /* LINUX */

@@ -195,6 +195,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 	DBGPRINT(RT_DEBUG_TRACE, ("--> RTMPAllocAdapterBlock\n"));
 
 	/* init UTIL module */
+	/* 初始化一个自旋锁 */
 	RtmpUtilInit();
 
 	*ppAdapter = NULL;
@@ -203,6 +204,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 	{
 		/* Allocate RTMP_ADAPTER memory block*/
 /*		pBeaconBuf = kmalloc(MAX_BEACON_SIZE, MEM_ALLOC_FLAG);*/
+		/* 分配beacon空间 */
 		os_alloc_mem(NULL, (UCHAR **)&pBeaconBuf, MAX_BEACON_SIZE);
 		if (pBeaconBuf == NULL)
 		{
@@ -212,6 +214,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 		}
 		NdisZeroMemory(pBeaconBuf, MAX_BEACON_SIZE);
 
+		/* 分配RTMP_ADAPTER空间 */
 		Status = AdapterBlockAllocateMemory(handle, (PVOID *)&pAd, sizeof(RTMP_ADAPTER));
 		if (Status != NDIS_STATUS_SUCCESS)
 		{
@@ -238,6 +241,7 @@ NDIS_STATUS	RTMPAllocAdapterBlock(
 		pAd->BeaconBuf = pBeaconBuf;
 		DBGPRINT(RT_DEBUG_OFF, ("\n\n=== pAd = %p, size = %d ===\n\n", pAd, (UINT32)sizeof(RTMP_ADAPTER)));
 
+		/* 分配与统计相关的空间 */
 		if (RtmpOsStatsAlloc(&pAd->stats, &pAd->iw_stats) == FALSE)
 		{
 			Status = NDIS_STATUS_FAILURE;
@@ -2293,6 +2297,7 @@ NDIS_STATUS NICLoadFirmware(
 {
 	NDIS_STATUS	 status = NDIS_STATUS_SUCCESS;
 
+	/* USBLoadFirmwareToAndes */
 	if (pAd->chipOps.loadFirmware)
 		status = pAd->chipOps.loadFirmware(pAd);
 	return status;
@@ -3460,6 +3465,10 @@ void CfgInitHook(PRTMP_ADAPTER pAd)
 }
 
 
+/*
+RtmpRaDevCtrlInit
+
+*/
 static INT RtmpChipOpsRegister(
 	IN RTMP_ADAPTER *pAd,
 	IN INT			infType)
@@ -3469,6 +3478,7 @@ static INT RtmpChipOpsRegister(
 	
 	memset(pChipOps, 0, sizeof(RTMP_CHIP_OP));
 
+	/* 芯片能力与操作初始化 */
 	RtmpChipOpsHook(pAd);
 
 	/* MCU related */

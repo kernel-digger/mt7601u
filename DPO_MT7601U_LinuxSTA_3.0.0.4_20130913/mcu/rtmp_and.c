@@ -126,6 +126,7 @@ loadfw_protect:
 	/* Check MCU if ready */
 	RTUSBReadMACRegister(pAd, COM_REG0, &MACValue);
 
+	/* 寄存器读出来的是1 */
 	if (MACValue == 0x01)
 		goto error0;
 

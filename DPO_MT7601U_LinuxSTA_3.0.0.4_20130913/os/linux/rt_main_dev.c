@@ -395,6 +395,9 @@ err:
 }
 
 
+/*
+分配struct net_device结构体实例
+*/
 PNET_DEV RtmpPhyNetDevInit(
 	IN VOID						*pAd,
 	IN RTMP_OS_NETDEV_OP_HOOK	*pNetDevHook)
@@ -405,6 +408,7 @@ PNET_DEV RtmpPhyNetDevInit(
 	RTMP_DRIVER_MAIN_INF_GET(pAd, &InfId);
 
 /*	net_dev = RtmpOSNetDevCreate(pAd, INT_MAIN, 0, sizeof(PRTMP_ADAPTER), INF_MAIN_DEV_NAME); */
+	/* 调用RtmpPhyNetDevMainCreate */
 	RTMP_DRIVER_MAIN_INF_CREATE(pAd, &net_dev);
 	if (net_dev == NULL)
 	{

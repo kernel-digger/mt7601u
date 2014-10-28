@@ -24,13 +24,10 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef _OID_H_
 #define _OID_H_
 
 /*#include <linux/wireless.h> */
-
-
 
 /* new types for Media Specific Indications */
 /* Extension channel offset */
@@ -45,7 +42,6 @@
 #define BAND_WIDTH_BOTH	3
 #define BAND_WIDTH_10		4	/* 802.11j has 10MHz. This definition is for internal usage. doesn't fill in the IE or other field. */
 
-
 /* SHORTGI */
 #define GAP_INTERVAL_400	1	/* only support in HT mode */
 #define GAP_INTERVAL_800	0
@@ -57,7 +53,6 @@
 #define NdisApMediaStateConnected			1
 #define NdisApMediaStateDisconnected		0
 
-
 #define NDIS_802_11_LENGTH_SSID         32
 
 #define	IEEE80211_ADDR_LEN		6	/* size of 802.11 address */
@@ -66,14 +61,13 @@
 #define NDIS_802_11_LENGTH_RATES        8
 #define NDIS_802_11_LENGTH_RATES_EX     16
 #define MAC_ADDR_LENGTH                 6
-/*#define MAX_NUM_OF_CHS					49 */ /* 14 channels @2.4G +  12@UNII + 4 @MMAC + 11 @HiperLAN2 + 7 @Japan + 1 as NULL terminationc */
-/*#define MAX_NUM_OF_CHS             		54 */ /* 14 channels @2.4G +  12@UNII(lower/middle) + 16@HiperLAN2 + 11@UNII(upper) + 0 @Japan + 1 as NULL termination */
+								      /*#define MAX_NUM_OF_CHS					49 *//* 14 channels @2.4G +  12@UNII + 4 @MMAC + 11 @HiperLAN2 + 7 @Japan + 1 as NULL terminationc */
+						      /*#define MAX_NUM_OF_CHS             		54 *//* 14 channels @2.4G +  12@UNII(lower/middle) + 16@HiperLAN2 + 11@UNII(upper) + 0 @Japan + 1 as NULL termination */
 #define MAX_NUMBER_OF_EVENT				10	/* entry # in EVENT table */
 #define MAX_NUMBER_OF_MAC				32	/* if MAX_MBSSID_NUM is 8, this value can't be larger than 211 */
 #define MAX_NUMBER_OF_ACL				64
 #define MAX_LENGTH_OF_SUPPORT_RATES		12	/* 1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54 */
 #define MAX_NUMBER_OF_DLS_ENTRY			4
-
 
 #define RT_QUERY_SIGNAL_CONTEXT				0x0402
 #define RT_SET_IAPP_PID                 	0x0404
@@ -102,7 +96,6 @@
 #define	OID_802_11_PRIVACY_FILTER					0x0118
 #define	OID_802_11_ASSOCIATION_INFORMATION			0x011E
 #define	OID_802_11_TEST								0x011F
-
 
 #define	RT_OID_802_11_COUNTRY_REGION				0x0507
 #define	OID_802_11_BSSID_LIST_SCAN					0x0508
@@ -210,7 +203,6 @@
 #ifdef TXBF_SUPPORT
 #define RT_OID_802_11_QUERY_TXBF_TABLE				0x067C
 #endif
-
 
 #ifdef HOSTAPD_SUPPORT
 #define SIOCSIWGENIE	0x8B30
@@ -352,7 +344,6 @@ struct hostapd_wpa_psk {
 
 #define RT_OID_802_11_SET_TDLS_PARAM			(OID_GET_SET_TOGGLE | RT_OID_802_11_QUERY_TDLS_PARAM)
 #define RT_OID_802_11_SET_TDLS				(OID_GET_SET_TOGGLE | RT_OID_802_11_QUERY_TDLS)
-
 
 typedef enum _NDIS_802_11_STATUS_TYPE {
 	Ndis802_11StatusType_Authentication,
@@ -533,19 +524,17 @@ typedef struct GNU_PACKED _DOT1X_IDLE_TIMEOUT {
 } DOT1X_IDLE_TIMEOUT, *PDOT1X_IDLE_TIMEOUT;
 #endif /* DOT1X_SUPPORT */
 
-
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
-typedef struct _NDIS_APCLI_802_11_KEY
-{
-    UINT           Length;             
-    UINT           KeyIndex;           
-    UINT           KeyLength;         
-    NDIS_802_11_MAC_ADDRESS BSSID;
-    NDIS_802_11_KEY_RSC KeyRSC;
-    UCHAR           KeyMaterial[1];     
+typedef struct _NDIS_APCLI_802_11_KEY {
+	UINT Length;
+	UINT KeyIndex;
+	UINT KeyLength;
+	NDIS_802_11_MAC_ADDRESS BSSID;
+	NDIS_802_11_KEY_RSC KeyRSC;
+	UCHAR KeyMaterial[1];
 } NDIS_APCLI_802_11_KEY, *PNDIS_APCLI_802_11_KEY;
-#endif/* APCLI_WPA_SUPPLICANT_SUPPORT */
+#endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
 #endif /* APCLI_SUPPORT */
 
 #ifdef CONFIG_STA_SUPPORT
@@ -579,7 +568,6 @@ typedef struct _NDIS_802_11_WEP {
 	UINT KeyLength;		/* length of key in bytes */
 	UCHAR KeyMaterial[1];	/* variable length depending on above field */
 } NDIS_802_11_WEP, *PNDIS_802_11_WEP;
-
 
 /* Add new authentication modes */
 typedef enum _NDIS_802_11_AUTHENTICATION_MODE {
@@ -634,7 +622,7 @@ typedef struct {
 typedef struct GNU_PACKED _NDIS_WLAN_BSSID_EX {
 	ULONG Length;		/* Length of this structure */
 	NDIS_802_11_MAC_ADDRESS MacAddress;	/* BSSID */
-	UCHAR WpsAP; /* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
+	UCHAR WpsAP;		/* 0x00: not support WPS, 0x01: support normal WPS, 0x02: support Ralink auto WPS, 0x04: support Samsung WAC */
 	CHAR MinSNR;
 	NDIS_802_11_SSID Ssid;	/* SSID */
 	UINT Privacy;		/* WEP encryption requirement */
@@ -696,7 +684,8 @@ typedef enum _NDIS_802_11_WEP_STATUS {
 	Ndis802_11Encryption4KeyAbsent,
 	Ndis802_11GroupWEP40Enabled,
 	Ndis802_11GroupWEP104Enabled,
-} NDIS_802_11_WEP_STATUS, *PNDIS_802_11_WEP_STATUS, NDIS_802_11_ENCRYPTION_STATUS, *PNDIS_802_11_ENCRYPTION_STATUS;
+} NDIS_802_11_WEP_STATUS, *PNDIS_802_11_WEP_STATUS,
+    NDIS_802_11_ENCRYPTION_STATUS, *PNDIS_802_11_ENCRYPTION_STATUS;
 
 typedef enum _NDIS_802_11_RELOAD_DEFAULTS {
 	Ndis802_11ReloadWEPKeys
@@ -774,22 +763,20 @@ typedef struct _NDIS_802_11_PMKID {
 } NDIS_802_11_PMKID, *PNDIS_802_11_PMKID;
 #endif /* defined(CONFIG_STA_SUPPORT) || defined(APCLI_WPA_SUPPLICANT_SUPPORT) */
 
-
 typedef struct _NDIS_802_11_AUTHENTICATION_ENCRYPTION {
 	NDIS_802_11_AUTHENTICATION_MODE AuthModeSupported;
 	NDIS_802_11_ENCRYPTION_STATUS EncryptStatusSupported;
-} NDIS_802_11_AUTHENTICATION_ENCRYPTION, *PNDIS_802_11_AUTHENTICATION_ENCRYPTION;
+} NDIS_802_11_AUTHENTICATION_ENCRYPTION,
+    *PNDIS_802_11_AUTHENTICATION_ENCRYPTION;
 
 typedef struct _NDIS_802_11_CAPABILITY {
 	ULONG Length;
 	ULONG Version;
 	ULONG NoOfPMKIDs;
 	ULONG NoOfAuthEncryptPairsSupported;
-	NDIS_802_11_AUTHENTICATION_ENCRYPTION
+	 NDIS_802_11_AUTHENTICATION_ENCRYPTION
 	    AuthenticationEncryptionSupported[1];
 } NDIS_802_11_CAPABILITY, *PNDIS_802_11_CAPABILITY;
-
-
 
 #ifdef DBG
 /*
@@ -799,7 +786,6 @@ typedef struct _NDIS_802_11_CAPABILITY {
 #define RTPRIV_IOCTL_FLAG_NODUMPMSG	0x0002	/* Notify driver cannot dump msg to stdio/stdout when run this private ioctl cmd */
 #define RTPRIV_IOCTL_FLAG_NOSPACE		0x0004	/* Notify driver didn't need copy msg to caller due to the caller didn't reserve space for this cmd */
 #endif /* DBG */
-
 
 #ifdef SNMP_SUPPORT
 /*SNMP ieee 802dot11 , 2008_0220 */
@@ -832,8 +818,6 @@ typedef struct _NDIS_802_11_CAPABILITY {
 #define OID_802_11_GET_CHANNEL_GEOGRAPHY		0x0717
 
 /*#define RT_OID_802_11_STATISTICS              (OID_GET_SET_TOGGLE | OID_802_11_STATISTICS) */
-
-
 
 #ifdef CONFIG_STA_SUPPORT
 #define RT_OID_WSC_SET_PASSPHRASE                   0x0740	/* passphrase for wpa(2)-psk */
@@ -877,8 +861,6 @@ typedef struct _NDIS_802_11_CAPABILITY {
 #define RT_OID_802_11_NINTENDO_SET_TABLE			0x0772	/*((RT_OID_NINTENDO + 0x02) & 0xffff) */
 #define RT_OID_802_11_NINTENDO_CAPABLE				0x0773	/*((RT_OID_NINTENDO + 0x03) & 0xffff) */
 #endif /* NINTENDO_AP */
-
-
 
 /* New for MeetingHouse Api support */
 #define OID_MH_802_1X_SUPPORTED               0xFFEDC100
@@ -952,18 +934,18 @@ typedef enum _RT_802_11_PHY_MODE {
 	PHY_11G = 4,
 #ifdef DOT11_N_SUPPORT
 	PHY_11ABGN_MIXED = 5,	/* both band   5 */
-	PHY_11N_2_4G = 6,		/* 11n-only with 2.4G band      6 */
-	PHY_11GN_MIXED = 7,		/* 2.4G band      7 */
-	PHY_11AN_MIXED = 8,		/* 5G  band       8 */
+	PHY_11N_2_4G = 6,	/* 11n-only with 2.4G band      6 */
+	PHY_11GN_MIXED = 7,	/* 2.4G band      7 */
+	PHY_11AN_MIXED = 8,	/* 5G  band       8 */
 	PHY_11BGN_MIXED = 9,	/* if check 802.11b.      9 */
 	PHY_11AGN_MIXED = 10,	/* if check 802.11b.      10 */
-	PHY_11N_5G = 11,		/* 11n-only with 5G band                11 */
+	PHY_11N_5G = 11,	/* 11n-only with 5G band                11 */
 #endif /* DOT11_N_SUPPORT */
 #ifdef DOT11_VHT_AC
-	PHY_11VHT_N_ABG_MIXED = 12, /* 12 -> AC/A/AN/B/G/GN mixed */
-	PHY_11VHT_N_AG_MIXED = 13, /* 13 -> AC/A/AN/G/GN mixed  */
-	PHY_11VHT_N_A_MIXED = 14, /* 14 -> AC/AN/A mixed in 5G band */
-	PHY_11VHT_N_MIXED = 15, /* 15 -> AC/AN mixed in 5G band */
+	PHY_11VHT_N_ABG_MIXED = 12,	/* 12 -> AC/A/AN/B/G/GN mixed */
+	PHY_11VHT_N_AG_MIXED = 13,	/* 13 -> AC/A/AN/G/GN mixed  */
+	PHY_11VHT_N_A_MIXED = 14,	/* 14 -> AC/AN/A mixed in 5G band */
+	PHY_11VHT_N_MIXED = 15,	/* 15 -> AC/AN mixed in 5G band */
 #endif /* DOT11_VHT_AC */
 	PHY_MODE_MAX,
 } RT_802_11_PHY_MODE;
@@ -1248,11 +1230,7 @@ typedef enum _RT_802_11_DLS_MODE {
 } RT_802_11_DLS_MODE;
 #endif /* QOS_DLS_SUPPORT */
 
-
 #endif /* CONFIG_STA_SUPPORT */
-
-
-
 
 /*#define MAX_CUSTOM_LEN 128 */
 
@@ -1268,7 +1246,6 @@ typedef struct _RT_CHANNEL_LIST_INFO {
 	UCHAR ChannelList[MAX_NUM_OF_CHS];	/* list all supported channels for site survey */
 	UCHAR ChannelListNum;	/* number of channel in ChannelList[] */
 } RT_CHANNEL_LIST_INFO, *PRT_CHANNEL_LIST_INFO;
-
 
 /* WSC configured credential */
 typedef struct _WSC_CREDENTIAL {
@@ -1290,9 +1267,6 @@ typedef struct _WSC_PROFILE {
 	WSC_CREDENTIAL Profile[8];	/* Support up to 8 profiles */
 } WSC_PROFILE, *PWSC_PROFILE;
 
-
-
-
 #ifdef APCLI_SUPPORT
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 #define	RT_ASSOC_EVENT_FLAG                         0x0101
@@ -1306,11 +1280,6 @@ typedef struct _WSC_PROFILE {
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
 #endif /* APCLI_SUPPORT */
 
-
-
-
-
-
 #ifdef RTMP_MAC_USB
 #define RT_OID_USB_WOW_SUSPEND				0x0920
 #define RT_OID_USB_WOW_RESUME				0x0921
@@ -1318,6 +1287,6 @@ typedef struct _WSC_PROFILE {
 
 #ifdef CONFIG_MULTI_CHANNEL
 #define RT_OID_MULTI_CHANNEL_ENABLE			0x0930
-#endif /*CONFIG_MULTI_CHANNEL*/
+#endif /*CONFIG_MULTI_CHANNEL */
 
 #endif /* _OID_H_ */

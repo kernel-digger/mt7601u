@@ -24,11 +24,8 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_IFACE_H__
 #define __RTMP_IFACE_H__
-
-
 
 #ifdef RTMP_USB_SUPPORT
 #include "iface/rtmp_usb.h"
@@ -48,7 +45,6 @@ typedef struct _INF_RBUS_CONFIG_ {
 	unsigned long csr_addr;
 	unsigned int irq;
 } INF_RBUS_CONFIG;
-
 
 typedef union _RTMP_INF_CONFIG_ {
 	struct _INF_PCI_CONFIG_ pciConfig;

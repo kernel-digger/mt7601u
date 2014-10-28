@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __CLIENT_WDS_CMM_H__
 #define __CLIENT_WDS_CMM_H__
 
@@ -32,13 +31,12 @@
 
 #ifdef CLIENT_WDS
 
-
-#define CLI_WDS_ENTRY_AGEOUT 5000  /* seconds */
+#define CLI_WDS_ENTRY_AGEOUT 5000	/* seconds */
 
 #define CLIWDS_POOL_SIZE 128
-#define CLIWDS_HASH_TAB_SIZE 64  /* the legth of hash table must be power of 2. */
+#define CLIWDS_HASH_TAB_SIZE 64	/* the legth of hash table must be power of 2. */
 typedef struct _CLIWDS_PROXY_ENTRY {
-	struct _CLIWDS_PROXY_ENTRY * pNext;
+	struct _CLIWDS_PROXY_ENTRY *pNext;
 	ULONG LastRefTime;
 	SHORT Aid;
 	UCHAR Addr[MAC_ADDR_LEN];
@@ -47,4 +45,3 @@ typedef struct _CLIWDS_PROXY_ENTRY {
 #endif /* CLIENT_WDS */
 
 #endif /* __CLIENT_WDS_CMM_H__ */
-

@@ -75,6 +75,7 @@ static BOOLEAN USBDevConfigInit(
 	IN VOID					*pAd);
 	
 
+/* 根据__pConfig中的idVendor和idProduct对__pAd的MoreFlags字段进行调整 */
 VOID RT28XXVendorSpecificCheck(
 	IN struct usb_device 	*dev,
 	IN VOID 				*pAd)
@@ -240,6 +241,26 @@ static BOOLEAN USBDevConfigInit(
 	BulkOutIdx = 0;
 	BulkInIdx = 0;
 
+#if 0
+NumEndpoints=8
+BULK IN MaxPacketSize = 512
+EP address = 0x84
+BULK IN MaxPacketSize = 512
+EP address = 0x85
+BULK OUT MaxPacketSize = 512
+EP address = 0x 8  
+BULK OUT MaxPacketSize = 512
+EP address = 0x 4  
+BULK OUT MaxPacketSize = 512
+EP address = 0x 5  
+BULK OUT MaxPacketSize = 512
+EP address = 0x 6  
+BULK OUT MaxPacketSize = 512
+EP address = 0x 7  
+BULK OUT MaxPacketSize = 512
+EP address = 0x 9  
+#endif
+
 	for (i = 0; i < pConfig->NumberOfPipes; i++)
 	{ 
 		if ((iface_desc->endpoint[i].desc.bmAttributes == USB_ENDPOINT_XFER_BULK) && 
@@ -293,6 +314,7 @@ static BOOLEAN USBDevConfigInit(
 	}
 
 	pConfig->pConfig = &dev->config->desc;
+	/* 在dev->driver_data记录pAd */
 	usb_set_intfdata(intf, pAd);
 	RTMP_DRIVER_USB_CONFIG_INIT(pAd, pConfig);
 	RT28XXVendorSpecificCheck(dev, pAd);    
@@ -306,11 +328,15 @@ static BOOLEAN USBDevConfigInit(
 static int rtusb_probe (struct usb_interface *intf,
 						const USB_DEVICE_ID *id)
 {	
+	/* 最后指向动态分配的struct _RTMP_ADAPTER */
 	VOID *pAd;
 	struct usb_device *dev;
+	/* rt2870_probe的返回值 */
 	int rv;
 
+	/* 从usb_interface获取usb_device */
 	dev = interface_to_usbdev(intf);
+	/* 增加引用计数 */
 	dev = usb_get_dev(dev);
 	
 	rv = rt2870_probe(intf, dev, id, &pAd);
@@ -678,6 +704,7 @@ static int rt2870_probe(
 	}
 	memset(handle, 0, sizeof(struct os_cookie));
 
+	/* 记录到os_cookie中 */
 	((POS_COOKIE)handle)->pUsb_Dev = usb_dev;
 
 #ifdef CONFIG_STA_SUPPORT
@@ -745,6 +772,7 @@ static int rt2870_probe(
 }
 #endif /* RT_CFG80211_SUPPORT */
 
+	/* 取值pAd->OpMode */
 	RTMP_DRIVER_OP_MODE_GET(pAd, &OpMode);
 	status = RtmpOSNetDevAttach(OpMode, net_dev, &netDevHook);
 	if (status != 0)

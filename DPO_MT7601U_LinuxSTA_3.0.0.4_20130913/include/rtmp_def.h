@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_DEF_H__
 #define __RTMP_DEF_H__
 
@@ -34,7 +33,6 @@
 #undef STA_WSC_INCLUDED
 #undef WSC_INCLUDED
 
-
 #ifdef CONFIG_STA_SUPPORT
 #endif /* CONFIG_STA_SUPPORT */
 
@@ -42,11 +40,9 @@
 #define WSC_INCLUDED
 #endif
 
-
 #define BAND_5G		1
 #define BAND_24G	2
 #define BAND_BOTH	(BAND_5G | BAND_24G)
-
 
 #ifdef SNMP_SUPPORT
 /* for snmp, to get manufacturer OUI, 2008_0220 */
@@ -61,7 +57,6 @@
 #define RALINK_3070_VERSION		((UINT32)0x30700200)
 
 #define MAX_RX_PKT_LEN	1520
-
 
 #define PCI_VIRT_TO_PHYS(__Addr)	(((UINT32)(__Addr)) & 0x0FFFFFFF)
 
@@ -90,7 +85,7 @@
 #endif
 #define NUM_OF_LOCAL_TXBUF      2
 #define TXD_SIZE		16	/* TXD_SIZE = TxD + TxInfo */
-#define RXD_SIZE		16	
+#define RXD_SIZE		16
 
 #define RXINFO_OFFSET	12
 
@@ -145,7 +140,6 @@
 #define MAX_PACKETS_IN_PS_QUEUE				128	/*32 */
 #define WMM_NUM_OF_AC                       4	/* AC0, AC1, AC2, and AC3 */
 
-
 #define MAX_AGG_3SS_BALIMIT		31
 
 /* RxFilter */
@@ -161,7 +155,6 @@
 #define MAX_PRECONFIG_DESP_ENTRY_SIZE  11
 #endif /* EXT_BUILD_CHANNEL_LIST */
 
-
 /*
 	RTMP_ADAPTER flags
 */
@@ -169,7 +162,7 @@
 #define fRTMP_ADAPTER_DISABLE_DEQUEUEPACKET  0x00000001
 #else
 #define fRTMP_ADAPTER_MAP_REGISTER           0x00000001
-#endif /*CONFIG_MULTI_CHANNEL*/
+#endif /*CONFIG_MULTI_CHANNEL */
 #define fRTMP_ADAPTER_INTERRUPT_IN_USE       0x00000002
 #define fRTMP_HW_ERR				0x00000004
 #define fRTMP_SG					0x00000008	/* Scatter and Gather */
@@ -203,7 +196,7 @@
 #define fRTMP_ADAPTER_IDLE_RADIO_OFF         0x40000000
 #define fRTMP_ADAPTER_POLL_IDLE				 0x80000000
 
-enum ASIC_CAP{
+enum ASIC_CAP {
 	fASIC_CAP_CSO = 0x1,
 	fASIC_CAP_TSO = 0x2,
 
@@ -212,7 +205,7 @@ enum ASIC_CAP{
 #define fRTMP_ADAPTER_WSC_PBC_PIN0		0x00000004
 #define fRTMP_ADAPTER_DISABLE_DOT_11N	0x00000008
 
-enum PHY_CAP{
+enum PHY_CAP {
 	fPHY_CAP_24G = 0x1,
 	fPHY_CAP_5G = 0x2,
 
@@ -225,7 +218,7 @@ enum PHY_CAP{
 #define PHY_CAP_2G(_x)		(((_x) & fPHY_CAP_24G) == fPHY_CAP_24G)
 #define PHY_CAP_5G(_x)		(((_x) & fPHY_CAP_5G) == fPHY_CAP_5G)
 
-enum WIFI_MODE{
+enum WIFI_MODE {
 	WMODE_INVALID = 0,
 	WMODE_A = 1 << 0,
 	WMODE_B = 1 << 1,
@@ -233,7 +226,7 @@ enum WIFI_MODE{
 	WMODE_GN = 1 << 3,
 	WMODE_AN = 1 << 4,
 	WMODE_AC = 1 << 5,
-	WMODE_COMP = 6,	/* total types of supported wireless mode, add this value once yow add new type */
+	WMODE_COMP = 6,		/* total types of supported wireless mode, add this value once yow add new type */
 };
 
 #define WMODE_CAP_5G(_x)			(((_x) & (WMODE_A | WMODE_AN | WMODE_AC)) != 0)
@@ -248,7 +241,6 @@ enum WIFI_MODE{
 #define WMODE_2G_ONLY(_x)		(((_x) & (WMODE_A | WMODE_AN | WMODE_AC)) == 0)
 #define WMODE_HT_ONLY(_x)		(((_x) & (~(WMODE_GN | WMODE_AN | WMODE_AC))) == 0)
 #define WMODE_VHT_ONLY(_x)		(((_x) & (~(WMODE_AC))) == 0)
-
 
 /*
 	STA operation status flags
@@ -273,7 +265,6 @@ enum WIFI_MODE{
 
 #define fOP_AP_STATUS_MEDIA_STATE_CONNECTED	0x00200000
 
-
 /*
 	RTMP_ADAPTER PSFlags : related to advanced power save
 */
@@ -288,7 +279,6 @@ enum WIFI_MODE{
 #define fRTMP_PS_GO_TO_SLEEP_NOW         0x00000008
 #define fRTMP_PS_TOGGLE_L1		0x00000010	/* Use Toggle L1 mechanism for rt28xx PCIe */
 #define fRTMP_PS_MCU_SLEEP				 0x00800000
-
 
 #define WAKE_MCU_CMD				0x31
 #define SLEEP_MCU_CMD				0x30
@@ -339,7 +329,6 @@ enum WIFI_MODE{
 #ifdef CLIENT_WDS
 #define fCLIENT_STATUS_CLI_WDS					0x00200000
 #endif /* CLIENT_WDS */
-
 
 /*
 	STA configuration flags
@@ -424,7 +413,6 @@ enum WIFI_MODE{
 
 #define MAX_MBSSID_NUM(__pAd)		1
 
-
 #ifdef MBSS_SUPPORT
 #undef MAX_MBSSID_NUM
 
@@ -449,7 +437,6 @@ enum WIFI_MODE{
 #define VALID_MBSS(_pAd, _apidx)	((_apidx < MAX_MBSSID_NUM(_pAd)) && (_apidx < HW_BEACON_MAX_NUM))
 
 #define MAX_BEACON_SIZE				512
-
 
 #define HW_RESERVED_WCID(__pAd)		((__pAd)->chipCap.WcidHwRsvNum)
 
@@ -488,7 +475,7 @@ enum WIFI_MODE{
 #define MAX_LEN_OF_SUPPORTED_RATES      MAX_LENGTH_OF_SUPPORT_RATES	/* 1, 2, 5.5, 11, 6, 9, 12, 18, 24, 36, 48, 54 */
 #define MAX_NUM_OF_REGULATORY_CLASS		16
 #define MAX_LEN_OF_KEY                  32	/* 32 octets == 256 bits, Redefine for WPA */
-/* #define MAX_NUM_OF_CHANNELS             MAX_NUM_OF_CHS */	/* 14 channels @2.4G +  12@UNII + 4 @MMAC + 11 @HiperLAN2 + 7 @Japan + 1 as NULL termination */
+															    /* #define MAX_NUM_OF_CHANNELS             MAX_NUM_OF_CHS *//* 14 channels @2.4G +  12@UNII + 4 @MMAC + 11 @HiperLAN2 + 7 @Japan + 1 as NULL termination */
 #define MAX_NUM_OF_11JCHANNELS             20	/* 14 channels @2.4G +  12@UNII + 4 @MMAC + 11 @HiperLAN2 + 7 @Japan + 1 as NULL termination */
 #define MAX_LEN_OF_SSID                 32
 #define CIPHER_TEXT_LEN                 128
@@ -547,7 +534,7 @@ enum WIFI_MODE{
 #define MAX_LEN_OF_BSS_TABLE             1
 #define MAX_REORDERING_MPDU_NUM			 256
 #else
-#define MAX_LEN_OF_BSS_TABLE             128 /* 64 */
+#define MAX_LEN_OF_BSS_TABLE             128	/* 64 */
 #define MAX_REORDERING_MPDU_NUM			 512
 #endif
 
@@ -620,7 +607,6 @@ enum WIFI_MODE{
 #define REASON_QOS_REQUEST_TIMEOUT        39
 #define REASON_QOS_CIPHER_NOT_SUPPORT     45
 
-
 #define REASON_FT_INVALID_FTIE				55
 
 /* Status code definitions */
@@ -640,7 +626,6 @@ enum WIFI_MODE{
 #define MLME_ASSOC_REJ_NO_EXT_RATE_PBCC   23
 #define MLME_ASSOC_REJ_NO_CCK_OFDM        24
 
-
 #define MLME_QOS_UNSPECIFY                32
 #define MLME_REQUEST_DECLINED             37
 #define MLME_REQUEST_WITH_INVALID_PARAM   38
@@ -650,7 +635,7 @@ enum WIFI_MODE{
 #define MLME_INVALID_AKMP   			  43
 #define MLME_NOT_SUPPORT_RSN_VERSION	  44
 #define	MLME_INVALID_RSN_CAPABILITIES	  45
-#define MLME_INVALID_SECURITY_POLICY      46 /* Cipher suite rejected because of security policy */
+#define MLME_INVALID_SECURITY_POLICY      46	/* Cipher suite rejected because of security policy */
 #define MLME_DLS_NOT_ALLOW_IN_QBSS        48
 #define MLME_DEST_STA_NOT_IN_QBSS         49
 #define MLME_DEST_STA_IS_NOT_A_QSTA       50
@@ -696,7 +681,7 @@ enum WIFI_MODE{
 #define IE_RSN                          48	/* 802.11i d3.0 */
 #define IE_WPA2                         48	/* WPA2 */
 #define IE_EXT_SUPP_RATES               50	/* 802.11g */
-#define IE_TIMEOUT_INTERVAL             56      /* 802.11w */
+#define IE_TIMEOUT_INTERVAL             56	/* 802.11w */
 #define IE_SUPP_REG_CLASS               59	/* 802.11y. Supported regulatory classes. */
 #define IE_EXT_CHANNEL_SWITCH_ANNOUNCEMENT	60	/* 802.11n */
 #define IE_ADD_HT                         61	/* 802.11n d1. ADDITIONAL HT CAPABILITY. ELEMENT ID TBD */
@@ -711,10 +696,10 @@ enum WIFI_MODE{
 #define IE_OVERLAPBSS_SCAN_PARM           74	/* 802.11n D3.03 */
 #define IE_CHANNEL_USAGE					97	/* Cisco advertises suggested channel using this IE. */
 #define IE_TIME_ZONE			98	/* 802.11V */
-#define IE_INTERWORKING			107 /* 802.11u */
-#define IE_ADVERTISEMENT_PROTO	108 /* 802.11u */
-#define IE_QOS_MAP_SET			110 /* 802.11u */
-#define IE_ROAMING_CONSORTIUM	111 /* 802.11u */
+#define IE_INTERWORKING			107	/* 802.11u */
+#define IE_ADVERTISEMENT_PROTO	108	/* 802.11u */
+#define IE_QOS_MAP_SET			110	/* 802.11u */
+#define IE_ROAMING_CONSORTIUM	111	/* 802.11u */
 #define IE_EXT_CAPABILITY                127	/* 802.11n D3.03 */
 
 #define IE_WPA                          221	/* WPA */
@@ -760,19 +745,11 @@ enum WIFI_MODE{
 #define WSC_STATE_MACHINE            17
 #define WSC_UPNP_STATE_MACHINE		    18
 
-
 #define WPA_STATE_MACHINE            		23
-
 
 #ifdef QOS_DLS_SUPPORT
 #define DLS_STATE_MACHINE               26
 #endif /* QOS_DLS_SUPPORT */
-
-
-
-
-
-
 
 /*
 	STA's CONTROL/CONNECT state machine: states, events, total function #
@@ -788,7 +765,6 @@ enum WIFI_MODE{
 #define CNTL_WAIT_OID_LIST_SCAN         8
 #define CNTL_WAIT_OID_DISASSOC          9
 #define CNTL_WAIT_SCAN_FOR_CONNECT      10
-
 
 #define MT2_ASSOC_CONF                  34
 #define MT2_AUTH_CONF                   35
@@ -879,7 +855,6 @@ enum WIFI_MODE{
 
 #define MAX_ACT_MSG				(MAX_IEEE_STD_CATE + 7)
 
-
 #define MT2_ACT_VENDOR				0x7F
 
 /* Category field */
@@ -891,7 +866,6 @@ enum WIFI_MODE{
 #define CATEGORY_RM			5
 #define CATEGORY_FT				6
 #define CATEGORY_HT			7
-
 
 /* DLS Action frame definition */
 #define ACTION_DLS_REQUEST		0
@@ -920,11 +894,11 @@ enum WIFI_MODE{
 #define ACTION_DSE_MEASUREMENT_REPORT		6	/* 11y D9.0 */
 #define ACTION_MEASUREMENT_PILOT_ACTION		7	/* 11y D9.0 */
 #define ACTION_DSE_POWER_CONSTRAINT			8	/* 11y D9.0 */
-#define ACTION_WIFI_DIRECT						9 	/* 11y */
-#define ACTION_GAS_INITIAL_REQ					10 	/* 11U */
-#define ACTION_GAS_INITIAL_RSP					11 	/* 11U */
-#define ACTION_GAS_COMEBACK_REQ				12 	/* 11U */
-#define ACTION_GAS_COMEBACK_RSP				13 	/* 11U */
+#define ACTION_WIFI_DIRECT						9	/* 11y */
+#define ACTION_GAS_INITIAL_REQ					10	/* 11U */
+#define ACTION_GAS_INITIAL_RSP					11	/* 11U */
+#define ACTION_GAS_COMEBACK_REQ				12	/* 11U */
+#define ACTION_GAS_COMEBACK_RSP				13	/* 11U */
 #define ACTION_TDLS_DISCOVERY_RSP				14	/* 11z D13.0 */
 #define ACTION_VENDOR_USAGE					221
 
@@ -1011,7 +985,6 @@ enum WIFI_MODE{
 
 #define DLS_FUNC_SIZE					(MAX_DLS_STATE * MAX_DLS_MSG)
 
-
 /*
 	WSC State machine: states, events, total function #
 */
@@ -1074,7 +1047,7 @@ enum WIFI_MODE{
 #else
 #define AP_MAX_SYNC_STATE               1
 #endif
-#endif /*CONFIG_MULTI_CHANNEL*/
+#endif /*CONFIG_MULTI_CHANNEL */
 
 #define AP_SYNC_MACHINE_BASE		0
 #define APMT2_PEER_PROBE_REQ		0
@@ -1162,14 +1135,12 @@ enum WIFI_MODE{
 
 #define APCLI_CTRL_FUNC_SIZE              (APCLI_MAX_CTRL_STATE * APCLI_MAX_CTRL_MSG)
 
-
 #endif /* APCLI_SUPPORT */
 
 #ifdef CONFIG_STA_SUPPORT
 #endif /* CONFIG_STA_SUPPORT */
 
 /* ============================================================================= */
-
 
 /* value domain of 802.11 MGMT frame's FC.subtype, which is b7..4 of the 1st-byte of MAC header */
 #define SUBTYPE_ASSOC_REQ           0
@@ -1225,14 +1196,12 @@ enum WIFI_MODE{
 #define BUF_ALIGMENT_RINGSIZE         6	/*BUF_ALIGMENT_RINGSIZE must  >= 3 */
 #endif /* USB_BULK_BUF_ALIGMENT */
 
-
 /* STA_CSR4.field.TxResult */
 #define TX_RESULT_SUCCESS           0
 #define TX_RESULT_ZERO_LENGTH       1
 #define TX_RESULT_UNDER_RUN         2
 #define TX_RESULT_OHY_ERROR         4
 #define TX_RESULT_RETRY_FAIL        6
-
 
 /* MCS for CCK.  BW.SGI.STBC are reserved */
 #define MCS_LONGP_RATE_1                      0	/* long preamble CCK 1Mbps */
@@ -1298,8 +1267,6 @@ enum WIFI_MODE{
 #define BW_40		BAND_WIDTH_40
 #define BW_80		BAND_WIDTH_80
 #define BW_10		BAND_WIDTH_10	/* 802.11j has 10MHz. This definition is for internal usage. doesn't fill in the IE or other field. */
-
-
 
 #define RF_BW_20	1
 #define RF_BW_40	2
@@ -1438,7 +1405,7 @@ enum WIFI_MODE{
 #define REGION_20_A_BAND                  20
 #define REGION_21_A_BAND                  21
 // only for HE Pana Box, disable dfs channel on US, Gary modify
-#define REGION_22_A_BAND                  22 /* 36, 40, 44, 48, 52, 56, 60, 64 */
+#define REGION_22_A_BAND                  22	/* 36, 40, 44, 48, 52, 56, 60, 64 */
 #define REGION_MAXIMUM_A_BAND             37
 
 /* The security mode definition in MAC register */
@@ -1452,8 +1419,6 @@ enum WIFI_MODE{
 #define CIPHER_CKIP152          	7
 #define CIPHER_SMS4					8
 
-
-
 /* RC4 init value, used fro WEP & TKIP */
 #define PPPINITFCS32                0xffffffff	/* Initial FCS value */
 
@@ -1464,10 +1429,8 @@ enum WIFI_MODE{
 #define PAIRWISE_KEY                1
 #define GROUP_KEY                   2
 
-
-
 /* Rate Adaptation timing */
-#define RA_RATE		5					/* RA every fifth 100msec period */
+#define RA_RATE		5	/* RA every fifth 100msec period */
 #define RA_INTERVAL		(RA_RATE*100)	/* RA Interval in msec */
 
 /* Rate Adaptation simpling interval setting */
@@ -1476,7 +1439,7 @@ enum WIFI_MODE{
 #define DEF_RA_TIME_INTRVAL			500
 
 /*definition of DRS */
-#define MAX_TX_RATE_INDEX			33		/* Maximum Tx Rate Table Index value */
+#define MAX_TX_RATE_INDEX			33	/* Maximum Tx Rate Table Index value */
 
 /* pre-allocated free NDIS PACKET/BUFFER poll for internal usage */
 #define MAX_NUM_OF_FREE_NDIS_PACKET 128
@@ -1567,7 +1530,6 @@ enum WIFI_MODE{
 #define ENTRY_DLS			5
 #define ENTRY_TDLS			6
 
-
 #define IS_ENTRY_NONE(_x)		((_x)->EntryType == ENTRY_NONE)
 #define IS_ENTRY_CLIENT(_x)		((_x)->EntryType == ENTRY_CLIENT)
 #define IS_ENTRY_WDS(_x)		((_x)->EntryType == ENTRY_WDS)
@@ -1593,7 +1555,6 @@ enum WIFI_MODE{
 #define SET_PKT_OPMODE_STA(_x)		((_x)->OpMode = OPMODE_STA)
 #define IS_PKT_OPMODE_AP(_x)		((_x)->OpMode == OPMODE_AP)
 #define IS_PKT_OPMODE_STA(_x)		((_x)->OpMode == OPMODE_STA)
-
 
 #define IS_OPMODE_AP(_x)		((_x)->OpMode == OPMODE_AP)
 #define IS_OPMODE_STA(_x)		((_x)->OpMode == OPMODE_STA)
@@ -1740,18 +1701,18 @@ enum WIFI_MODE{
 /* definition for Antenna Diversity flag */
 typedef enum {
 	ANT_DIVERSITY_DISABLE,
-	ANT_DIVERSITY_ENABLE ,
+	ANT_DIVERSITY_ENABLE,
 	ANT_FIX_ANT0,
 	ANT_FIX_ANT1,
 	ANT_SW_DIVERSITY_ENABLE,
 	ANT_HW_DIVERSITY_ENABLE,
 	ANT_DIVERSITY_DEFAULT
-}ANT_DIVERSITY_TYPE;
+} ANT_DIVERSITY_TYPE;
 
 enum IEEE80211_BAND {
-  IEEE80211_BAND_2G,
-  IEEE80211_BAND_5G,
-  IEEE80211_BAND_NUMS
+	IEEE80211_BAND_2G,
+	IEEE80211_BAND_5G,
+	IEEE80211_BAND_NUMS
 };
 
 enum {
@@ -1784,7 +1745,6 @@ enum {
 #define	MCC_ACTION		400
 
 #endif /* CONFIG_MULTI_CHANNEL */
-
 
 /* Advertismenet Protocol ID definitions */
 enum DOT11U_ADVERTISMENT_PROTOCOL_ID {
@@ -1843,7 +1803,6 @@ do{									\
 								__FromWhichBSSID, __TPID);					\
 }
 
-
 #define RT_VLAN_PKT_DUPLICATE(__pPacket, __pAd, __VLAN_VID, __VLAN_Priority,\
 								__pHeader8023, __HdrLen, __pData,			\
 								__DataSize, __FromWhichBSSID, __TPID)		\
@@ -1855,7 +1814,6 @@ do{									\
 				__pHeader8023, __HdrLen, __pData, __DataSize,				\
 				__FromWhichBSSID, __TPID);									\
 }
-
 
 #define RT_80211_TO_8023_PACKET(__pAd, __VLAN_VID, __VLAN_Priority,			\
 								__pRxBlk, __pHeader802_3,					\

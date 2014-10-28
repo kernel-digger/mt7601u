@@ -24,9 +24,7 @@
  *                                                                       *
  *************************************************************************/
 
-
 #include "rt_config.h"
 
 #ifdef DFS_SUPPORT
 #endif /* DFS_SUPPORT */
-

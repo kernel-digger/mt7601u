@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RT_LINUX_H__
 #define __RT_LINUX_H__
 
@@ -36,22 +35,19 @@
 #undef STA_WSC_INCLUDED
 #undef WSC_INCLUDED
 
-
 #ifdef CONFIG_STA_SUPPORT
 #endif /* CONFIG_STA_SUPPORT */
 
-
 /*#ifdef RTMP_USB_SUPPORT */
-typedef VOID	*PUSB_DEV;
-typedef VOID	*purbb_t;
-typedef VOID	pregs;
+typedef VOID *PUSB_DEV;
+typedef VOID *purbb_t;
+typedef VOID pregs;
 /*typedef struct usb_ctrlrequest devctrlrequest; */
 /*#endif */
 
 /***********************************************************************************
  *	Profile related sections
  ***********************************************************************************/
-
 
 #ifdef CONFIG_STA_SUPPORT
 
@@ -79,23 +75,21 @@ typedef VOID	pregs;
 #define INOUT
 #define NDIS_STATUS		INT
 
-
 /***********************************************************************************
  *	OS Specific definitions and data structures
  ***********************************************************************************/
-typedef void				* PPCI_DEV;
-typedef void				* PNET_DEV;
-typedef void				* PNDIS_PACKET;
-typedef char				NDIS_PACKET;
-typedef PNDIS_PACKET		* PPNDIS_PACKET;
-typedef ra_dma_addr_t		NDIS_PHYSICAL_ADDRESS;
-typedef ra_dma_addr_t		* PNDIS_PHYSICAL_ADDRESS;
-typedef void				* NDIS_HANDLE;
-typedef char 				* PNDIS_BUFFER;
+typedef void *PPCI_DEV;
+typedef void *PNET_DEV;
+typedef void *PNDIS_PACKET;
+typedef char NDIS_PACKET;
+typedef PNDIS_PACKET *PPNDIS_PACKET;
+typedef ra_dma_addr_t NDIS_PHYSICAL_ADDRESS;
+typedef ra_dma_addr_t *PNDIS_PHYSICAL_ADDRESS;
+typedef void *NDIS_HANDLE;
+typedef char *PNDIS_BUFFER;
 
 #undef KERN_ERR
 #define KERN_ERR
-
 
 /***********************************************************************************
  *	Network related constant definitions
@@ -127,12 +121,11 @@ typedef char 				* PNDIS_BUFFER;
 #define STATS_INC_RX_DROPPED(_pAd, _dev)
 #define STATS_INC_TX_DROPPED(_pAd, _dev)
 
-
 /***********************************************************************************
  *	Ralink Specific network related constant definitions
  ***********************************************************************************/
-#define MIN_NET_DEVICE_FOR_MBSSID		0x00		/*0x00,0x10,0x20,0x30 */
-#define MIN_NET_DEVICE_FOR_WDS			0x10		/*0x40,0x50,0x60,0x70 */
+#define MIN_NET_DEVICE_FOR_MBSSID		0x00	/*0x00,0x10,0x20,0x30 */
+#define MIN_NET_DEVICE_FOR_WDS			0x10	/*0x40,0x50,0x60,0x70 */
 #define MIN_NET_DEVICE_FOR_APCLI		0x20
 #define MIN_NET_DEVICE_FOR_MESH			0x30
 #ifdef CONFIG_STA_SUPPORT
@@ -140,8 +133,7 @@ typedef char 				* PNDIS_BUFFER;
 #define MIN_NET_DEVICE_FOR_TDLS			0x50
 #endif /* CONFIG_STA_SUPPORT */
 
-#define NET_DEVICE_REAL_IDX_MASK		0x0f		/* for each operation mode, we maximum support 15 entities. */
-
+#define NET_DEVICE_REAL_IDX_MASK		0x0f	/* for each operation mode, we maximum support 15 entities. */
 
 #ifdef CONFIG_STA_SUPPORT
 #define NDIS_PACKET_TYPE_DIRECTED		0
@@ -151,7 +143,6 @@ typedef char 				* PNDIS_BUFFER;
 #define NDIS_PACKET_TYPE_PROMISCUOUS	4
 #endif /* CONFIG_STA_SUPPORT */
 
-
 /***********************************************************************************
  *	OS signaling related constant definitions
  ***********************************************************************************/
@@ -159,7 +150,7 @@ typedef char 				* PNDIS_BUFFER;
 /***********************************************************************************
  *	OS file operation related data structure definitions
  ***********************************************************************************/
-typedef VOID * 			RTMP_OS_FD;
+typedef VOID *RTMP_OS_FD;
 
 #define IS_FILE_OPEN_ERR(_fd)	RtmpOsFileIsErr((_fd))
 
@@ -179,12 +170,10 @@ typedef VOID * 			RTMP_OS_FD;
 #define O_TRUNC				RTMP_FILE_TRUNC
 #endif /* O_TRUNC */
 
-
 /***********************************************************************************
  *	OS semaphore related data structure and definitions
  ***********************************************************************************/
 #define RTCMDUp				RtmpOsCmdUp
-
 
 /***********************************************************************************
  *	OS Memory Access related data structure and definitions
@@ -202,18 +191,16 @@ typedef VOID * 			RTMP_OS_FD;
 
 #define COPY_MAC_ADDR(Addr1, Addr2)             	memcpy((Addr1), (Addr2), MAC_ADDR_LEN)
 
-
 /***********************************************************************************
  *	OS task related data structure and definitions
  ***********************************************************************************/
-#define RTMP_OS_PID						ULONG /* value or pointer */
+#define RTMP_OS_PID						ULONG	/* value or pointer */
 
 #define RTMP_GET_OS_PID(_a, _b)			RtmpOsGetPid(&_a, _b);
 #define CHECK_TASK_LEGALITY(_task)		RtmpOsCheckTaskLegality(_task)
 #define ATE_KILL_THREAD_PID				RtmpThreadPidKill
 
-typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
-
+typedef INT(*RTMP_OS_TASK_CALLBACK) (ULONG);
 
 /***********************************************************************************
  * IOCTL related definitions and data structures.
@@ -240,13 +227,12 @@ typedef INT (*RTMP_OS_TASK_CALLBACK)(ULONG);
 #define EAGAIN					(-RTMP_IO_EAGAIN)
 #define ENOTCONN				(-RTMP_IO_ENOTCONN)
 
-
 /***********************************************************************************
  * Timer related definitions and data structures.
  **********************************************************************************/
 #define OS_HZ					RtmpOsTickUnitGet()
 
-typedef void (*TIMER_FUNCTION)(ULONG);
+typedef void (*TIMER_FUNCTION) (ULONG);
 
 #define OS_WAIT					RtmpOsWait
 
@@ -257,7 +243,6 @@ typedef void (*TIMER_FUNCTION)(ULONG);
 
 #define NdisGetSystemUpTime		RtmpOsGetSystemUpTime
 
-
 /***********************************************************************************
  *	OS specific cookie data structure binding to RTMP_ADAPTER
  ***********************************************************************************/
@@ -266,53 +251,50 @@ typedef void (*TIMER_FUNCTION)(ULONG);
 struct os_cookie {
 
 #ifdef RTMP_MAC_USB
-	VOID					*pUsb_Dev;
+	VOID *pUsb_Dev;
 #ifdef CONFIG_STA_SUPPORT
-	VOID					 *intf;
-#endif /* CONFIG_STA_SUPPORT */
+	VOID *intf;
+#endif				/* CONFIG_STA_SUPPORT */
 
-#endif /* RTMP_MAC_USB */
+#endif				/* RTMP_MAC_USB */
 
 #ifdef WORKQUEUE_BH
-	UINT32		     		pAd_va;
-#endif /* WORKQUEUE_BH */
+	UINT32 pAd_va;
+#endif				/* WORKQUEUE_BH */
 
-	RTMP_NET_TASK_STRUCT	rx_done_task;
-	RTMP_NET_TASK_STRUCT	cmd_rsp_event_task;
-	RTMP_NET_TASK_STRUCT	mgmt_dma_done_task;
-	RTMP_NET_TASK_STRUCT	ac0_dma_done_task;
+	RTMP_NET_TASK_STRUCT rx_done_task;
+	RTMP_NET_TASK_STRUCT cmd_rsp_event_task;
+	RTMP_NET_TASK_STRUCT mgmt_dma_done_task;
+	RTMP_NET_TASK_STRUCT ac0_dma_done_task;
 #ifdef RALINK_ATE
-	RTMP_NET_TASK_STRUCT	ate_ac0_dma_done_task;
-#endif /* RALINK_ATE */
-	RTMP_NET_TASK_STRUCT	ac1_dma_done_task;
-	RTMP_NET_TASK_STRUCT	ac2_dma_done_task;
-	RTMP_NET_TASK_STRUCT	ac3_dma_done_task;
-	RTMP_NET_TASK_STRUCT	hcca_dma_done_task;
-	RTMP_NET_TASK_STRUCT	tbtt_task;
-
+	RTMP_NET_TASK_STRUCT ate_ac0_dma_done_task;
+#endif				/* RALINK_ATE */
+	RTMP_NET_TASK_STRUCT ac1_dma_done_task;
+	RTMP_NET_TASK_STRUCT ac2_dma_done_task;
+	RTMP_NET_TASK_STRUCT ac3_dma_done_task;
+	RTMP_NET_TASK_STRUCT hcca_dma_done_task;
+	RTMP_NET_TASK_STRUCT tbtt_task;
 
 #ifdef UAPSD_SUPPORT
-	RTMP_NET_TASK_STRUCT	uapsd_eosp_sent_task;
-#endif /* UAPSD_SUPPORT */
-
+	RTMP_NET_TASK_STRUCT uapsd_eosp_sent_task;
+#endif				/* UAPSD_SUPPORT */
 
 #ifdef RTMP_MAC_USB
-	RTMP_NET_TASK_STRUCT	null_frame_complete_task;
-	RTMP_NET_TASK_STRUCT	pspoll_frame_complete_task;
-#endif /* RTMP_MAC_USB */
+	RTMP_NET_TASK_STRUCT null_frame_complete_task;
+	RTMP_NET_TASK_STRUCT pspoll_frame_complete_task;
+#endif				/* RTMP_MAC_USB */
 
 #ifdef CONFIG_MULTI_CHANNEL
-	RTMP_NET_TASK_STRUCT	hcca_null_frame_complete_task;
-#endif /* CONFIG_MULTI_CHANNEL */
+	RTMP_NET_TASK_STRUCT hcca_null_frame_complete_task;
+#endif				/* CONFIG_MULTI_CHANNEL */
 
-	RTMP_OS_PID				apd_pid; /*802.1x daemon pid */
-	unsigned long			apd_pid_nr;
-	INT						ioctl_if_type;
-	INT 					ioctl_if;
+	RTMP_OS_PID apd_pid;	/*802.1x daemon pid */
+	unsigned long apd_pid_nr;
+	INT ioctl_if_type;
+	INT ioctl_if;
 };
 
-typedef struct os_cookie	* POS_COOKIE;
-
+typedef struct os_cookie *POS_COOKIE;
 
 /***********************************************************************************
  *	OS debugging and printing related definitions and data structure
@@ -321,8 +303,8 @@ typedef struct os_cookie	* POS_COOKIE;
 	addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]
 
 #ifdef DBG
-extern ULONG		RTDebugLevel;
-extern ULONG		RTDebugFunc;
+extern ULONG RTDebugLevel;
+extern ULONG RTDebugFunc;
 
 #define DBGPRINT_RAW(Level, Fmt)    \
 do{                                   \
@@ -337,7 +319,6 @@ do{                                   \
 }while(0)
 
 #define DBGPRINT(Level, Fmt)    DBGPRINT_RAW(Level, Fmt)
-
 
 #define DBGPRINT_ERR(Fmt)           \
 {                                   \
@@ -371,11 +352,9 @@ do{                                   \
 
 void hex_dump(char *str, unsigned char *pSrcBufVA, unsigned int SrcBufLen);
 
-
 /*********************************************************************************************************
 	The following code are not revised, temporary put it here.
   *********************************************************************************************************/
-
 
 /***********************************************************************************
  * Device DMA Access related definitions and data structures.
@@ -383,15 +362,17 @@ void hex_dump(char *str, unsigned char *pSrcBufVA, unsigned int SrcBufLen);
 /*#ifdef RTMP_MAC_PCI*/
 #define size_t						ULONG
 
-ra_dma_addr_t linux_pci_map_single(void *handle, void *ptr, size_t size, int sd_idx, int direction);
-void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, int direction);
+ra_dma_addr_t linux_pci_map_single(void *handle, void *ptr, size_t size,
+				   int sd_idx, int direction);
+void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size,
+			    int direction);
 
 #define pci_enable_msi		RtmpOsPciMsiEnable
 #define pci_disable_msi		RtmpOsPciMsiDisable
 
 #define PCI_MAP_SINGLE_DEV(_handle, _ptr, _size, _sd_idx, _dir)				\
 	linux_pci_map_single(_handle, _ptr, _size, _sd_idx, _dir)
-	
+
 #define PCI_UNMAP_SINGLE(_pAd, _ptr, _size, _dir)						\
 	linux_pci_unmap_single(((POS_COOKIE)(_pAd->OS_Cookie))->pci_dev, _ptr, _size, _dir)
 
@@ -409,7 +390,6 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 /*#define PCI_MAP_SINGLE(_handle, _ptr, _size, _dir)				(ULONG)0 */
 /*#define PCI_UNMAP_SINGLE(_handle, _ptr, _size, _dir) */
 /*#endif RTMP_MAC_USB */
-
 
 /*
  * ULONG
@@ -444,8 +424,6 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 
 #define NdisMIndicateStatus(_w, _x, _y, _z)
 
-
-
 /***********************************************************************************
  * Device Register I/O Access related definitions and data structures.
  **********************************************************************************/
@@ -457,7 +435,6 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 #define writeb		RTMP_PCI_Writeb
 
 /* TODO: We can merge two readl to a function to speed up or one real/writel */
-
 
 #ifdef RTMP_MAC_USB
 #define RTMP_IO_FORCE_READ32(_A, _R, _pV)								\
@@ -484,7 +461,6 @@ void linux_pci_unmap_single(void *handle, ra_dma_addr_t dma_addr, size_t size, i
 	USHORT	_Val = _V;											\
 	RTUSBSingleWrite((_A), (_R), (USHORT) (_Val), FALSE);		\
 }
-
 
 #define RTMP_IO_WRITE16(_A, _R, _V)								\
 {																\
@@ -582,11 +558,9 @@ extern ULONG RTPktOffsetData, RTPktOffsetLen, RTPktOffsetCB;
 
 #define RTMP_OS_PKT_INIT			RtmpOsPktInit
 
-extern UINT32 RtmpOsGetUnaligned32(
-	IN UINT32				*pWord);
+extern UINT32 RtmpOsGetUnaligned32(IN UINT32 * pWord);
 
-extern ULONG RtmpOsGetUnalignedlong(
-	IN ULONG				*pWord);
+extern ULONG RtmpOsGetUnalignedlong(IN ULONG * pWord);
 
 #define get_unaligned		RtmpOsGetUnaligned
 #define get_unaligned32		RtmpOsGetUnaligned32
@@ -613,7 +587,6 @@ extern ULONG RtmpOsGetUnalignedlong(
 #define RTMP_OS_NETDEV_START_QUEUE				RtmpOsNetQueueStart
 #define RTMP_OS_NETDEV_STOP_QUEUE				RtmpOsNetQueueStop
 #define RTMP_OS_NETDEV_WAKE_QUEUE				RtmpOsNetQueueWake
-
 
 #define CB_OFF  10
 
@@ -664,8 +637,6 @@ extern ULONG RtmpOsGetUnalignedlong(
 #define RTMP_SET_PACKET_MOREDATA(_p, _morebit)	(PACKET_CB(_p, 7) = _morebit)
 #define RTMP_GET_PACKET_MOREDATA(_p)			(PACKET_CB(_p, 7))
 
-
-
 #ifdef UAPSD_SUPPORT
 /* if we queue a U-APSD packet to any software queue, we will set the U-APSD
    flag and its physical queue ID for it */
@@ -681,7 +652,6 @@ extern ULONG RtmpOsGetUnalignedlong(
 #define RTMP_SET_PACKET_EOSP(_p, _flg)   (PACKET_CB(_p, 10) = _flg)
 #define RTMP_GET_PACKET_EOSP(_p)         (PACKET_CB(_p, 10))
 #endif /* UAPSD_SUPPORT */
-
 
 /* */
 /*	Sepcific Pakcet Type definition */
@@ -749,7 +719,7 @@ extern ULONG RtmpOsGetUnalignedlong(
 				else														\
 					PACKET_CB(_p, 11) &= (~RTMP_PACKET_SPECIFIC_LLCSNAP);	\
 			}while(0)
-			
+
 #define RTMP_GET_PACKET_LLCSNAP(_p)		(PACKET_CB(_p, 11) & RTMP_PACKET_SPECIFIC_LLCSNAP)
 
 /* IP */
@@ -760,7 +730,7 @@ extern ULONG RtmpOsGetUnalignedlong(
 				else													\
 					PACKET_CB(_p, 11) &= (~RTMP_PACKET_SPECIFIC_IPV4);	\
 			}while(0)
-			
+
 #define RTMP_GET_PACKET_IPV4(_p)		(PACKET_CB(_p, 11) & RTMP_PACKET_SPECIFIC_IPV4)
 
 /* TDLS */
@@ -771,20 +741,18 @@ extern ULONG RtmpOsGetUnalignedlong(
 				else																		\
 					(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+11]) &= (~RTMP_PACKET_SPECIFIC_TDLS);	\
 			}while(0)
-			
+
 #define RTMP_GET_PACKET_TDLS(_p)		(RTPKT_TO_OSPKT(_p)->cb[CB_OFF+11] & RTMP_PACKET_SPECIFIC_TDLS)
 
 /* If this flag is set, it indicates that this EAPoL frame MUST be clear. */
 #define RTMP_SET_PACKET_CLEAR_EAP_FRAME(_p, _flg)   (PACKET_CB(_p, 12) = _flg)
 #define RTMP_GET_PACKET_CLEAR_EAP_FRAME(_p)         (PACKET_CB(_p, 12))
 
-
 #ifdef DOT11_VHT_AC
-#define MAX_PACKETS_IN_QUEUE				1024 /*(512)*/
+#define MAX_PACKETS_IN_QUEUE				1024	/*(512) */
 #else
 #define MAX_PACKETS_IN_QUEUE				(512)
 #endif /* DOT11_VHT_AC */
-
 
 /* use bit3 of cb[CB_OFF+16] */
 #define RTMP_SET_PACKET_MGMT_PKT(_p, _flg)	        \
@@ -817,23 +785,15 @@ extern ULONG RtmpOsGetUnalignedlong(
 #endif /* INF_AMAZON_SE */
 /* Max skb->cb = 48B = [CB_OFF+38] */
 
-
-
-
 #if defined(CONFIG_CSO_SUPPORT) || defined(CONFIG_RX_CSO_SUPPORT)
 #define RTMP_SET_TCP_CHKSUM_FAIL(_p, _flg) 	(PACKET_CB(_p, 30) = _flg);
 #define RTMP_GET_TCP_CHKSUM_FAIL(_p)		(PACKET_CB(_p, 30))
 #endif /* defined(CONFIG_CSO_SUPPORT) || defined(CONFIG_RX_CSO_SUPPORT) */
 
-
-
 /***********************************************************************************
  *	Other function prototypes definitions
  ***********************************************************************************/
-void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
-
-
-
+void RTMP_GetCurrentSystemTime(LARGE_INTEGER * time);
 
 #ifdef RTMP_USB_SUPPORT
 /******************************************************************************
@@ -865,8 +825,6 @@ void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
 #define RTUSB_AUTOPM_PUT_INTERFACE	rausb_autopm_put_interface
 #define RTUSB_AUTOPM_GET_INTERFACE	rausb_autopm_get_interface
 
-
-
 #define RTUSB_CONTROL_MSG(pUsb_Dev, uEndpointAddress, Request, RequestType, Value,Index, tmpBuf, TransferBufferLength, timeout, ret)	\
   		do{	\
 			if (RequestType == DEVICE_VENDOR_REQUEST_OUT)	\
@@ -880,13 +838,12 @@ void RTMP_GetCurrentSystemTime(LARGE_INTEGER *time);
 			}	\
 		}while(0)
 
+extern VOID dump_urb(VOID * purb);
 
-extern VOID dump_urb(VOID *purb);
-
-typedef VOID		USBHST_STATUS;
-typedef INT32		URBCompleteStatus;
+typedef VOID USBHST_STATUS;
+typedef INT32 URBCompleteStatus;
 #define RTMP_OS_WAIT_QUEUE_HEAD		VOID
-typedef VOID (*usb_complete_t)(VOID *);
+typedef VOID(*usb_complete_t) (VOID *);
 
 #define RtmpUsbBulkOutDataPacketComplete		pRtmpDrvNetOps->RtmpNetUsbBulkOutDataPacketComplete
 #define RtmpUsbBulkOutMLMEPacketComplete		pRtmpDrvNetOps->RtmpNetUsbBulkOutMLMEPacketComplete
@@ -913,16 +870,23 @@ typedef VOID (*usb_complete_t)(VOID *);
 #define RTUSBBulkOutHCCANullFrameComplete(Status, pURB, pt_regs)	RTUSBBulkOutHCCANullFrameComplete(pURB)
 #endif /* CONFIG_MULTI_CHANNEL */
 
-
-USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkOutMLMEPacketComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkOutNullFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkOutRTSFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkOutPsPollComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkRxComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
-USBHST_STATUS RTUSBBulkCmdRspEventComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
+USBHST_STATUS RTUSBBulkOutDataPacketComplete(URBCompleteStatus Status,
+					     purbb_t pURB, pregs * pt_regs);
+USBHST_STATUS RTUSBBulkOutMLMEPacketComplete(URBCompleteStatus Status,
+					     purbb_t pURB, pregs * pt_regs);
+USBHST_STATUS RTUSBBulkOutNullFrameComplete(URBCompleteStatus Status,
+					    purbb_t pURB, pregs * pt_regs);
+USBHST_STATUS RTUSBBulkOutRTSFrameComplete(URBCompleteStatus Status,
+					   purbb_t pURB, pregs * pt_regs);
+USBHST_STATUS RTUSBBulkOutPsPollComplete(URBCompleteStatus Status, purbb_t pURB,
+					 pregs * pt_regs);
+USBHST_STATUS RTUSBBulkRxComplete(URBCompleteStatus Status, purbb_t pURB,
+				  pregs * pt_regs);
+USBHST_STATUS RTUSBBulkCmdRspEventComplete(URBCompleteStatus Status,
+					   purbb_t pURB, pregs * pt_regs);
 #ifdef CONFIG_MULTI_CHANNEL
-USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_t pURB, pregs *pt_regs);
+USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status,
+						purbb_t pURB, pregs * pt_regs);
 #endif /* CONFIG_MULTI_CHANNEL */
 
 #define rtusb_urb_context  context
@@ -941,29 +905,21 @@ USBHST_STATUS RTUSBBulkOutHCCANullFrameComplete(URBCompleteStatus Status, purbb_
 #define in_interrupt		RtmpOsIsInInterrupt
 
 extern VOID *rausb_alloc_urb(INT32 iso_packets);
-extern VOID rausb_free_urb(VOID *urb);
-extern INT32 rausb_submit_urb(VOID *urb);
-extern VOID *rausb_buffer_alloc(VOID *dev,
-								size_t size,
-								ra_dma_addr_t *dma);
-extern VOID rausb_buffer_free(VOID *dev,
-								size_t size,
-								VOID *addr,
-								ra_dma_addr_t dma);
-extern VOID rausb_kill_urb(VOID *urb);
+extern VOID rausb_free_urb(VOID * urb);
+extern INT32 rausb_submit_urb(VOID * urb);
+extern VOID *rausb_buffer_alloc(VOID * dev, size_t size, ra_dma_addr_t * dma);
+extern VOID rausb_buffer_free(VOID * dev,
+			      size_t size, VOID * addr, ra_dma_addr_t dma);
+extern VOID rausb_kill_urb(VOID * urb);
 
-extern int rausb_control_msg(VOID *dev,
-						unsigned int pipe,
-						__u8 request,
-						__u8 requesttype,
-						__u16 value,
-						__u16 index,
-						void *data,
-						__u16 size,
-						int timeout);
+extern int rausb_control_msg(VOID * dev,
+			     unsigned int pipe,
+			     __u8 request,
+			     __u8 requesttype,
+			     __u16 value,
+			     __u16 index, void *data, __u16 size, int timeout);
 
 #endif /* RTMP_USB_SUPPORT */
-
 
 #ifdef RALINK_ATE
 /******************************************************************************
@@ -976,13 +932,12 @@ extern int rausb_control_msg(VOID *dev,
 
 #ifdef RTMP_MAC_USB
 #ifdef CONFIG_STA_SUPPORT
-#undef EEPROM_BIN_FILE_NAME /* Avoid APSTA mode re-define issue */
+#undef EEPROM_BIN_FILE_NAME	/* Avoid APSTA mode re-define issue */
 #define EEPROM_BIN_FILE_NAME  "/etc/Wireless/RT2870STA/e2p.bin"
 #endif /* CONFIG_STA_SUPPORT */
 #endif /* RTMP_MAC_USB */
 
 #endif /* RALINK_ATE */
-
 
 /* OS definition re-declaration */
 #ifndef NULL
@@ -994,7 +949,7 @@ extern int rausb_control_msg(VOID *dev,
 #endif
 
 #ifndef ETH_P_IP
-#define ETH_P_IP        0x0800          /* Internet Protocol packet     */
+#define ETH_P_IP        0x0800	/* Internet Protocol packet     */
 #endif
 
 #ifndef ETH_ALEN
@@ -1023,7 +978,7 @@ extern int rausb_control_msg(VOID *dev,
 #define atomic_dec						RtmpOsAtomicDec
 #define InterlockedExchange				RtmpOsAtomicInterlockedExchange
 
-extern int sprintf(char * buf, const char * fmt, ...);
+extern int sprintf(char *buf, const char *fmt, ...);
 extern int sscanf(const char *, const char *, ...);
 
 #define printk							pRaOsOps->ra_printk

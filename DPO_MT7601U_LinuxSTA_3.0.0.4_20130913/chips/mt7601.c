@@ -2279,6 +2279,10 @@ VOID MT7601_TemperatureCompensation(
 }
 
 
+/*
+compensation: ²¹³¥
+
+*/
 VOID MT7601AsicTemperatureCompensation(
 	IN PRTMP_ADAPTER			pAd,
 	IN BOOLEAN					bPowerOn)

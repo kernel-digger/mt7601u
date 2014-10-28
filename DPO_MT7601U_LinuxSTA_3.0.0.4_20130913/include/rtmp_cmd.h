@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_CMD_H__
 #define __RTMP_CMD_H__
 
@@ -61,8 +60,6 @@ typedef struct _CmdQ {
 
 /* OS_RTCMDUp is only used in UTIL/NETIF module */
 #define OS_RTCMDUp						RtmpOsCmdUp
-
-
 
 /* RALINK command status code */
 #define RTMP_IO_EINVAL							30000
@@ -203,11 +200,10 @@ typedef enum _CMD_RTPRIV_IOCTL_COMMON {
 	CMD_RTPRIV_IOCTL_ADAPTER_RT28XX_USB_ASICRADIO_OFF,
 	CMD_RTPRIV_IOCTL_ADAPTER_RT28XX_USB_ASICRADIO_ON,
 	CMD_RTPRIV_IOCTL_SANITY_CHECK,
-	CMD_RTPRIV_IOCTL_SANITY_CHECK_ON_SET_CMD,	
+	CMD_RTPRIV_IOCTL_SANITY_CHECK_ON_SET_CMD,
 #ifdef EXT_BUILD_CHANNEL_LIST
 	CMD_RTPRIV_SET_PRECONFIG_VALUE,
 #endif /* EXT_BUILD_CHANNEL_LIST */
-
 
 	/* mesh */
 	CMD_RTPRIV_IOCTL_MESH_INIT,
@@ -365,7 +361,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_STA {
 #define RT_CMD_80211_TXRATE_BW_40		0x02
 #define RT_CMD_80211_TXRATE_SHORT_GI	0x04
 	UINT32 TxRateFlags;
-	
+
 	UINT32 TxRateMCS;
 	INT32 Signal;
 	UINT32 TxPacketCnt;
@@ -411,7 +407,7 @@ typedef struct __CMD_RTPRIV_IOCTL_80211_REG_NOTIFY {
 typedef struct __CMD_RTPRIV_IOCTL_80211_SURVEY {
 
 	VOID *pCfg80211;
-/*	UINT64 ChannelTime; */ /* idle + busy, not support */
+	/*      UINT64 ChannelTime; *//* idle + busy, not support */
 	UINT64 ChannelTimeBusy;
 	UINT64 ChannelTimeExtBusy;
 } CMD_RTPRIV_IOCTL_80211_SURVEY;
@@ -510,21 +506,20 @@ typedef struct __RT_CMD_USB_MORE_FLAG_CONFIG {
 } RT_CMD_USB_MORE_FLAG_CONFIG;
 
 typedef struct __RT_CMD_USB_DEV_CONFIG {
+	/* 8¸ö */
 	IN UINT NumberOfPipes;
 	IN UINT8 BulkInEpAddr[2];
 	IN USHORT BulkInMaxPacketSize;
 	IN UINT8 BulkOutEpAddr[6];
 	IN USHORT BulkOutMaxPacketSize;
+	/* Ö¸Ïòstruct usb_config_descriptor */
 	IN VOID *pConfig;
 } RT_CMD_USB_DEV_CONFIG;
 
 typedef struct __RT_CMD_CFG80211_CONFIG {
 	IN VOID *pCfgDev;
-	IN VOID(
-	*CFG80211_Register) (
-	IN VOID * pAd,
-	IN VOID * pDev,
-	IN VOID * pNetDev);
+	IN VOID(*CFG80211_Register) (IN VOID * pAd,
+				     IN VOID * pDev, IN VOID * pNetDev);
 } RT_CMD_CFG80211_CONFIG;
 
 typedef struct __RT_CMD_WAIT_QUEUE_LIST {
@@ -536,8 +531,8 @@ typedef struct __RT_CMD_WAIT_QUEUE_LIST {
 
 typedef struct __RT_CMD_INF_UP_DOWN {
 
-	IN	int (*rt28xx_open)(VOID *net_dev);
-	IN	int (*rt28xx_close)(VOID *net_dev);
+	IN int (*rt28xx_open) (VOID * net_dev);
+	IN int (*rt28xx_close) (VOID * net_dev);
 } RT_CMD_INF_UP_DOWN;
 
 typedef struct __RT_CMD_STATS {

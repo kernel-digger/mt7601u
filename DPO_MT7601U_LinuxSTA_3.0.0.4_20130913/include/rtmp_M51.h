@@ -24,29 +24,21 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_M51_H__
 #define __RTMP_M51_H__
 
 struct _RTMP_ADAPTER;
 
-INT RtmpAsicEraseFirmware(
-	struct _RTMP_ADAPTER *pAd);
+INT RtmpAsicEraseFirmware(struct _RTMP_ADAPTER *pAd);
 
-NDIS_STATUS RtmpAsicLoadFirmware(
-	struct _RTMP_ADAPTER *pAd);
+NDIS_STATUS RtmpAsicLoadFirmware(struct _RTMP_ADAPTER *pAd);
 
-NDIS_STATUS isMCUnotReady(
-	struct _RTMP_ADAPTER *pAd);
+NDIS_STATUS isMCUnotReady(struct _RTMP_ADAPTER *pAd);
 
-NDIS_STATUS isMCUNeedToLoadFIrmware(
-	struct _RTMP_ADAPTER *pAd);
+NDIS_STATUS isMCUNeedToLoadFIrmware(struct _RTMP_ADAPTER *pAd);
 
-INT RtmpAsicSendCommandToMcu(
-	struct _RTMP_ADAPTER *pAd,
-	UCHAR Command,
-	UCHAR Token,
-	UCHAR Arg0,
-	UCHAR Arg1,
-	BOOLEAN FlgIsNeedLocked);
+INT RtmpAsicSendCommandToMcu(struct _RTMP_ADAPTER *pAd,
+			     UCHAR Command,
+			     UCHAR Token,
+			     UCHAR Arg0, UCHAR Arg1, BOOLEAN FlgIsNeedLocked);
 #endif

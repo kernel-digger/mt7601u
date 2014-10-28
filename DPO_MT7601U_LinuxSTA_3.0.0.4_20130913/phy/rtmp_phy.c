@@ -102,6 +102,7 @@ NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 		}
 	}
 
+	/* NICInitMT7601BbpRegisters */
 	if (pAd->chipOps.AsicBbpInit != NULL)
 		pAd->chipOps.AsicBbpInit(pAd);
 

@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_TIMER_H__
 #define  __RTMP_TIMER_H__
 
@@ -42,12 +41,10 @@
 /*  submit to ctrl pipe). So we need a wrapper function to take care it. */
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
-typedef VOID(
-	*RTMP_TIMER_TASK_HANDLE) (
-	IN PVOID SystemSpecific1,
-	IN PVOID FunctionContext,
-	IN PVOID SystemSpecific2,
-	IN PVOID SystemSpecific3);
+typedef VOID(*RTMP_TIMER_TASK_HANDLE) (IN PVOID SystemSpecific1,
+				       IN PVOID FunctionContext,
+				       IN PVOID SystemSpecific2,
+				       IN PVOID SystemSpecific3);
 #endif /* RTMP_TIMER_TASK_SUPPORT */
 
 typedef struct _RALINK_TIMER_STRUCT {
@@ -63,7 +60,6 @@ typedef struct _RALINK_TIMER_STRUCT {
 	RTMP_TIMER_TASK_HANDLE handle;
 #endif				/* RTMP_TIMER_TASK_SUPPORT */
 } RALINK_TIMER_STRUCT, *PRALINK_TIMER_STRUCT;
-
 
 #ifdef RTMP_TIMER_TASK_SUPPORT
 typedef struct _RTMP_TIMER_TASK_ENTRY_ {
@@ -113,7 +109,6 @@ DECLARE_TIMER_FUNCTION(EnqueueStartForPSKExec);
 #ifdef CONFIG_STA_SUPPORT
 #endif /* CONFIG_STA_SUPPORT */
 
-
 #ifdef RTMP_MAC_USB
 DECLARE_TIMER_FUNCTION(BeaconUpdateExec);
 #endif /* RTMP_MAC_USB */
@@ -123,7 +118,6 @@ DECLARE_TIMER_FUNCTION(MCC_ChangeAction);
 
 DECLARE_TIMER_FUNCTION(ConcurrentP2PConnectTimeout);
 #endif /* CONFIG_MULTI_CHANNEL */
-
 
 #ifdef CONFIG_STA_SUPPORT
 DECLARE_TIMER_FUNCTION(BeaconTimeout);
@@ -140,8 +134,6 @@ DECLARE_TIMER_FUNCTION(WpaDisassocApAndBlockAssoc);
 DECLARE_TIMER_FUNCTION(DlsTimeoutAction);
 #endif /* QOS_DLS_SUPPORT */
 
-
-
 #ifdef RTMP_MAC_USB
 DECLARE_TIMER_FUNCTION(RtmpUsbStaAsicForceWakeupTimeout);
 #endif /* RTMP_MAC_USB */
@@ -151,10 +143,6 @@ DECLARE_TIMER_FUNCTION(RtmpUsbStaAsicForceWakeupTimeout);
 #ifdef TXBF_SUPPORT
 DECLARE_TIMER_FUNCTION(eTxBfProbeTimerExec);
 #endif // TXBF_SUPPORT //
-
-
-
-
 
 #ifdef RALINK_ATE
 DECLARE_TIMER_FUNCTION(ATEPeriodicExec);

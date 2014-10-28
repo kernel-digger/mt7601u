@@ -405,6 +405,7 @@ PNET_DEV RtmpPhyNetDevInit(
 	struct net_device	*net_dev = NULL;
 	ULONG InfId, OpMode;
 
+	/* InfId = INT_MAIN */
 	RTMP_DRIVER_MAIN_INF_GET(pAd, &InfId);
 
 /*	net_dev = RtmpOSNetDevCreate(pAd, INT_MAIN, 0, sizeof(PRTMP_ADAPTER), INF_MAIN_DEV_NAME); */

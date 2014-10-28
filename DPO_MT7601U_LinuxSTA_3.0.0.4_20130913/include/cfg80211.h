@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifdef RT_CFG80211_SUPPORT
 
 #include <linux/ieee80211.h>
@@ -49,9 +48,6 @@ typedef struct __CFG80211_CB {
 	struct ieee80211_channel ChanInfo[MAX_NUM_OF_CHANNELS];
 } CFG80211_CB;
 
-
-
-
 /*
 ========================================================================
 Routine Description:
@@ -72,11 +68,8 @@ Note:
 	Can not use pNetDev to replace pDev; Or kernel panic.
 ========================================================================
 */
-BOOLEAN CFG80211_Register(
-	VOID						*pAd,
-	struct device				*pDev,
-	struct net_device			*pNetDev);
-
+BOOLEAN CFG80211_Register(VOID * pAd,
+			  struct device *pDev, struct net_device *pNetDev);
 
 #endif /* RT_CFG80211_SUPPORT */
 

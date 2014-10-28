@@ -24,16 +24,12 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_TYPE_H__
 #define __RTMP_TYPE_H__
-
-
 
 #ifndef GNU_PACKED
 #define GNU_PACKED  __attribute__ ((packed))
 #endif /* GNU_PACKED */
-
 
 #ifdef LINUX
 /* Put platform dependent declaration here */
@@ -100,7 +96,6 @@ typedef union _LARGE_INTEGER {
 	INT64 QuadPart;
 } LARGE_INTEGER;
 
-
 /* Register set pair for initialzation register set definition */
 typedef struct _RTMP_REG_PAIR {
 	UINT32 Register;
@@ -125,16 +120,14 @@ typedef struct _REG_PAIR_BW {
 	UCHAR Value;
 } REG_PAIR_BW, *PREG_PAIR_BW;
 
-
-typedef struct _REG_PAIR_PHY{
+typedef struct _REG_PAIR_PHY {
 	UCHAR reg;
 	UCHAR s_ch;
 	UCHAR e_ch;
-	UCHAR phy;	/* RF_MODE_XXX */
-	UCHAR bw;	/* RF_BW_XX */
+	UCHAR phy;		/* RF_MODE_XXX */
+	UCHAR bw;		/* RF_BW_XX */
 	UCHAR val;
-}REG_PAIR_PHY;
-
+} REG_PAIR_PHY;
 
 /* Register set pair for initialzation register set definition */
 typedef struct _RTMP_RF_REGS {
@@ -174,13 +167,13 @@ typedef struct _BANK_RF_REG_PAIR {
 	UCHAR Value;
 } BANK_RF_REG_PAIR, *PBANK_RF_REG_PAIR;
 
-typedef struct _R_M_W_REG{
+typedef struct _R_M_W_REG {
 	UINT32 Register;
 	UINT32 ClearBitMask;
 	UINT32 Value;
 } R_M_W_REG, *PR_M_W_REG;
 
-typedef struct _RF_R_M_W_REG{
+typedef struct _RF_R_M_W_REG {
 	UCHAR Bank;
 	UCHAR Register;
 	UCHAR ClearBitMask;

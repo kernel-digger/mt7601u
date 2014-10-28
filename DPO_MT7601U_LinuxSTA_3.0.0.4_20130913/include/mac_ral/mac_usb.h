@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __MAC_USB_H__
 #define __MAC_USB_H__
 
@@ -40,7 +39,6 @@
 #include "chip/rtmp_phy.h"
 #include "rtmp_iface.h"
 #include "rtmp_dot11.h"
-
 
 #define USB_CYC_CFG				0x02a4
 
@@ -58,7 +56,6 @@
 		(fRTMP_ADAPTER_NIC_NOT_EXIST | fRTMP_ADAPTER_HALT_IN_PROGRESS |	\
 		 fRTMP_ADAPTER_RESET_IN_PROGRESS | fRTMP_ADAPTER_BULKOUT_RESET | \
 		 fRTMP_ADAPTER_RADIO_OFF | fRTMP_ADAPTER_REMOVE_IN_PROGRESS)
-
 
 /* =================================================================================
 	USB TX / RX Frame Descriptors format
@@ -81,7 +78,6 @@
 	|                                      802.11                                                                                  |
 	|                                      .........                                                                                   |
 	+--------------------------------------------------------------------------+
-
 
 	Rx Memory Layout
 	1. Packet Buffer
@@ -106,163 +102,151 @@
 
 ================================================================================= */
 
-
 /*
 	RXINFO appends at the end of each rx packet
 */
 #define RXDMA_FIELD_SIZE	4
 
-
 /*
 	Rx descriptor format, Rx Ring
 */
 #ifdef RT_BIG_ENDIAN
-typedef	struct GNU_PACKED _RXD_STRUC{
+typedef struct GNU_PACKED _RXD_STRUC {
 	UINT32 dma_len;
-}RXD_STRUC, *PRXD_STRUC;
+} RXD_STRUC, *PRXD_STRUC;
 #else
-typedef	struct GNU_PACKED _RXD_STRUC{
+typedef struct GNU_PACKED _RXD_STRUC {
 	UINT32 dma_len;
-}RXD_STRUC, *PRXD_STRUC;
+} RXD_STRUC, *PRXD_STRUC;
 #endif
-
 
 /*
 	Management ring buffer format
 */
-typedef	struct _MGMT_STRUC	{
-	BOOLEAN		Valid;
-	PUCHAR		pBuffer;
-	ULONG		Length;
+typedef struct _MGMT_STRUC {
+	BOOLEAN Valid;
+	PUCHAR pBuffer;
+	ULONG Length;
 } MGMT_STRUC, *PMGMT_STRUC;
-
 
 /*////////////////////////////////////////////////////////////////////////*/
 /* The TX_BUFFER structure forms the transmitted USB packet to the device */
 /*////////////////////////////////////////////////////////////////////////*/
-typedef struct __TX_BUFFER{
-	union{
-		UCHAR			WirelessPacket[TX_BUFFER_NORMSIZE];
-		HEADER_802_11	NullFrame;
-		PSPOLL_FRAME	PsPollPacket;
-		RTS_FRAME		RTSFrame;
-	}field;
-	UCHAR			Aggregation[4];  /*Buffer for save Aggregation size. */
+typedef struct __TX_BUFFER {
+	union {
+		UCHAR WirelessPacket[TX_BUFFER_NORMSIZE];
+		HEADER_802_11 NullFrame;
+		PSPOLL_FRAME PsPollPacket;
+		RTS_FRAME RTSFrame;
+	} field;
+	UCHAR Aggregation[4];	/*Buffer for save Aggregation size. */
 } TX_BUFFER, *PTX_BUFFER;
 
-typedef struct __HTTX_BUFFER{
-	union{
-		UCHAR			WirelessPacket[MAX_TXBULK_SIZE];
-		HEADER_802_11	NullFrame;
-		PSPOLL_FRAME	PsPollPacket;
-		RTS_FRAME		RTSFrame;
-	}field;
-	UCHAR			Aggregation[4];  /*Buffer for save Aggregation size. */
+typedef struct __HTTX_BUFFER {
+	union {
+		UCHAR WirelessPacket[MAX_TXBULK_SIZE];
+		HEADER_802_11 NullFrame;
+		PSPOLL_FRAME PsPollPacket;
+		RTS_FRAME RTSFrame;
+	} field;
+	UCHAR Aggregation[4];	/*Buffer for save Aggregation size. */
 } HTTX_BUFFER, *PHTTX_BUFFER;
 
 #define EDCA_AC0_PIPE	0	/* Bulk EP1 OUT */
 #define EDCA_AC1_PIPE	1	/* Bulk EP2 OUT */
-#define EDCA_AC2_PIPE	2	/* Bulk EP3	OUT */
+#define EDCA_AC2_PIPE	2	/* Bulk EP3     OUT */
 #define	EDCA_AC3_PIPE	3	/* Bulk EP4 OUT */
-#define	HCCA_PIPE		4	/* Bulk EP5	OUT */
+#define	HCCA_PIPE		4	/* Bulk EP5     OUT */
 
 /* used to track driver-generated write irps */
-typedef struct _TX_CONTEXT
-{
-	PVOID			pAd;		/*Initialized in MiniportInitialize */
-	PURB			pUrb;			/*Initialized in MiniportInitialize */
-	PIRP			pIrp;			/*used to cancel pending bulk out. */
-									/*Initialized in MiniportInitialize */
-	PTX_BUFFER		TransferBuffer;	/*Initialized in MiniportInitialize */
-	ULONG			BulkOutSize;
-	UCHAR			BulkOutPipeId;
-	UCHAR			SelfIdx;
-	BOOLEAN			InUse;
-	BOOLEAN			bWaitingBulkOut; /* at least one packet is in this TxContext, ready for making IRP anytime. */
-	BOOLEAN			bFullForBulkOut; /* all tx buffer are full , so waiting for tx bulkout. */
-	BOOLEAN			IRPPending;
-	BOOLEAN			LastOne;
-	BOOLEAN			bAggregatible;
-	UCHAR			Header_802_3[LENGTH_802_3];
-	UCHAR			Rsv[2];
-	ULONG			DataOffset;
-	UINT			TxRate;
-	ra_dma_addr_t		data_dma;
+typedef struct _TX_CONTEXT {
+	PVOID pAd;		/*Initialized in MiniportInitialize */
+	PURB pUrb;		/*Initialized in MiniportInitialize */
+	PIRP pIrp;		/*used to cancel pending bulk out. */
+	/*Initialized in MiniportInitialize */
+	PTX_BUFFER TransferBuffer;	/*Initialized in MiniportInitialize */
+	ULONG BulkOutSize;
+	UCHAR BulkOutPipeId;
+	UCHAR SelfIdx;
+	BOOLEAN InUse;
+	BOOLEAN bWaitingBulkOut;	/* at least one packet is in this TxContext, ready for making IRP anytime. */
+	BOOLEAN bFullForBulkOut;	/* all tx buffer are full , so waiting for tx bulkout. */
+	BOOLEAN IRPPending;
+	BOOLEAN LastOne;
+	BOOLEAN bAggregatible;
+	UCHAR Header_802_3[LENGTH_802_3];
+	UCHAR Rsv[2];
+	ULONG DataOffset;
+	UINT TxRate;
+	ra_dma_addr_t data_dma;
 
-}	TX_CONTEXT, *PTX_CONTEXT, **PPTX_CONTEXT;
-
+} TX_CONTEXT, *PTX_CONTEXT, **PPTX_CONTEXT;
 
 /* used to track driver-generated write irps */
-typedef struct _HT_TX_CONTEXT
-{
-	PVOID			pAd;		/*Initialized in MiniportInitialize */
-	PURB			pUrb;			/*Initialized in MiniportInitialize */
-	PIRP			pIrp;			/*used to cancel pending bulk out. */
-									/*Initialized in MiniportInitialize */
-	PHTTX_BUFFER	TransferBuffer;	/*Initialized in MiniportInitialize */
-	ULONG			BulkOutSize;	/* Indicate the total bulk-out size in bytes in one bulk-transmission */
-	UCHAR			BulkOutPipeId;
-	BOOLEAN			IRPPending;
-	BOOLEAN			LastOne;
-	BOOLEAN			bCurWriting;
-	BOOLEAN			bRingEmpty;
-	BOOLEAN			bCopySavePad;
-	UCHAR			SavedPad[8];
-	UCHAR			Header_802_3[LENGTH_802_3];
-	ULONG			CurWritePosition;		/* Indicate the buffer offset which packet will be inserted start from. */
-	ULONG			CurWriteRealPos;		/* Indicate the buffer offset which packet now are writing to. */
-	ULONG			NextBulkOutPosition;	/* Indicate the buffer start offset of a bulk-transmission */
-	ULONG			ENextBulkOutPosition;	/* Indicate the buffer end offset of a bulk-transmission */
-	UINT			TxRate;
-	ra_dma_addr_t		data_dma;		/* urb dma on linux */
+typedef struct _HT_TX_CONTEXT {
+	PVOID pAd;		/*Initialized in MiniportInitialize */
+	PURB pUrb;		/*Initialized in MiniportInitialize */
+	PIRP pIrp;		/*used to cancel pending bulk out. */
+	/*Initialized in MiniportInitialize */
+	PHTTX_BUFFER TransferBuffer;	/*Initialized in MiniportInitialize */
+	ULONG BulkOutSize;	/* Indicate the total bulk-out size in bytes in one bulk-transmission */
+	UCHAR BulkOutPipeId;
+	BOOLEAN IRPPending;
+	BOOLEAN LastOne;
+	BOOLEAN bCurWriting;
+	BOOLEAN bRingEmpty;
+	BOOLEAN bCopySavePad;
+	UCHAR SavedPad[8];
+	UCHAR Header_802_3[LENGTH_802_3];
+	ULONG CurWritePosition;	/* Indicate the buffer offset which packet will be inserted start from. */
+	ULONG CurWriteRealPos;	/* Indicate the buffer offset which packet now are writing to. */
+	ULONG NextBulkOutPosition;	/* Indicate the buffer start offset of a bulk-transmission */
+	ULONG ENextBulkOutPosition;	/* Indicate the buffer end offset of a bulk-transmission */
+	UINT TxRate;
+	ra_dma_addr_t data_dma;	/* urb dma on linux */
 #ifdef USB_BULK_BUF_ALIGMENT
-	ULONG 			CurWriteIdx;	/* pointer to next 32k bytes position when wirte tx resource or when bulk out sizze not > 0x6000 */
-	ULONG 			NextBulkIdx;	/* pointer to next alignment section when bulk ot */
-#endif /* USB_BULK_BUF_ALIGMENT */
+	ULONG CurWriteIdx;	/* pointer to next 32k bytes position when wirte tx resource or when bulk out sizze not > 0x6000 */
+	ULONG NextBulkIdx;	/* pointer to next alignment section when bulk ot */
+#endif				/* USB_BULK_BUF_ALIGMENT */
 
-}	HT_TX_CONTEXT, *PHT_TX_CONTEXT, **PPHT_TX_CONTEXT;
+} HT_TX_CONTEXT, *PHT_TX_CONTEXT, **PPHT_TX_CONTEXT;
 
-
-typedef struct _CMD_CONTEXT
-{
+typedef struct _CMD_CONTEXT {
 	PVOID pAd;
 	PURB pUrb;
 	ra_dma_addr_t data_dma;
 	PUCHAR TransferBuffer;
 	BOOLEAN IRPPending;
-}  CMD_CONTEXT, *PCMD_CONTEXT, **PPCMD_CONTEXT;
+} CMD_CONTEXT, *PCMD_CONTEXT, **PPCMD_CONTEXT;
 
 /* */
 /* Structure to keep track of receive packets and buffers to indicate */
 /* receive data to the protocol. */
 /* */
-typedef struct _RX_CONTEXT
-{
-	PUCHAR				TransferBuffer; 
-	PVOID				pAd;
-	PIRP				pIrp;/*used to cancel pending bulk in. */
-	PURB				pUrb;
+typedef struct _RX_CONTEXT {
+	PUCHAR TransferBuffer;
+	PVOID pAd;
+	PIRP pIrp;		/*used to cancel pending bulk in. */
+	PURB pUrb;
 	/*These 2 Boolean shouldn't both be 1 at the same time. */
-	ULONG				BulkInOffset;	/* number of packets waiting for reordering . */
+	ULONG BulkInOffset;	/* number of packets waiting for reordering . */
 /*	BOOLEAN				ReorderInUse;	// At least one packet in this buffer are in reordering buffer and wait for receive indication */
-	BOOLEAN				bRxHandling;	/* Notify this packet is being process now. */
-	BOOLEAN				InUse;			/* USB Hardware Occupied. Wait for USB HW to put packet. */
-	BOOLEAN				Readable;		/* Receive Complete back. OK for driver to indicate receiving packet. */
-	BOOLEAN				IRPPending;		/* TODO: To be removed */
-	/*atomic_t				IrpLock; */
-	NDIS_SPIN_LOCK		RxContextLock;
-	ra_dma_addr_t			data_dma;		/* urb dma on linux */
-}	RX_CONTEXT, *PRX_CONTEXT;
+	BOOLEAN bRxHandling;	/* Notify this packet is being process now. */
+	BOOLEAN InUse;		/* USB Hardware Occupied. Wait for USB HW to put packet. */
+	BOOLEAN Readable;	/* Receive Complete back. OK for driver to indicate receiving packet. */
+	BOOLEAN IRPPending;	/* TODO: To be removed */
+	/*atomic_t                              IrpLock; */
+	NDIS_SPIN_LOCK RxContextLock;
+	ra_dma_addr_t data_dma;	/* urb dma on linux */
+} RX_CONTEXT, *PRX_CONTEXT;
 
-
-typedef struct _CMD_RSP_CONTEXT
-{
+typedef struct _CMD_RSP_CONTEXT {
 	PUCHAR CmdRspBuffer;
 	PVOID pAd;
 	PURB pUrb;
 	BOOLEAN IRPPending;
 	BOOLEAN InUse;
-	BOOLEAN Readable; 
+	BOOLEAN Readable;
 	ra_dma_addr_t data_dma;
 } CMD_RSP_CONTEXT, *PCMD_RSP_CONTEXT;
 
@@ -273,12 +257,10 @@ typedef struct _CMD_RSP_CONTEXT
 ******************************************************************************/
 /* 8051 firmware image for usb - use last-half base address = 0x3000 */
 #define FIRMWARE_IMAGE_BASE			0x3000
-#define MAX_FIRMWARE_IMAGE_SIZE		0x1000    /* 4kbyte */
+#define MAX_FIRMWARE_IMAGE_SIZE		0x1000	/* 4kbyte */
 
 #define RTMP_WRITE_FIRMWARE(_pAd, _pFwImage, _FwLen)		\
 	RTUSBFirmwareWrite(_pAd, _pFwImage, _FwLen)
-	
-
 
 /******************************************************************************
 
@@ -315,26 +297,26 @@ typedef struct _CMD_RSP_CONTEXT
 		do{}while(0)
 
 #define NEED_QUEUE_BACK_FOR_AGG(_pAd, _QueIdx, _freeNum, _TxFrameType) 		\
-		((_TxFrameType == TX_RALINK_FRAME) && (RTUSBNeedQueueBackForAgg(_pAd, _QueIdx)))	
+		((_TxFrameType == TX_RALINK_FRAME) && (RTUSBNeedQueueBackForAgg(_pAd, _QueIdx)))
 
 #define HAL_WriteSubTxResource(pAd, pTxBlk, bIsLast, pFreeNumber)	\
 			RtmpUSB_WriteSubTxResource(pAd, pTxBlk, bIsLast, pFreeNumber)
-			
+
 #define HAL_WriteTxResource(pAd, pTxBlk,bIsLast, pFreeNumber)	\
 			RtmpUSB_WriteSingleTxResource(pAd, pTxBlk,bIsLast, pFreeNumber)
 
 #define HAL_WriteFragTxResource(pAd, pTxBlk, fragNum, pFreeNumber) \
 			RtmpUSB_WriteFragTxResource(pAd, pTxBlk, fragNum, pFreeNumber)
-			
+
 #define HAL_WriteMultiTxResource(pAd, pTxBlk,frameNum, pFreeNumber)	\
 			RtmpUSB_WriteMultiTxResource(pAd, pTxBlk,frameNum, pFreeNumber)
-	
+
 #define HAL_FinalWriteTxResource(pAd, pTxBlk, totalMPDUSize, TxIdx)	\
 			RtmpUSB_FinalWriteTxResource(pAd, pTxBlk, totalMPDUSize, TxIdx)
 
 #define HAL_LastTxIdx(pAd, QueIdx,TxIdx) \
-			/*RtmpUSBDataLastTxIdx(pAd, QueIdx,TxIdx)*/
-	
+				/*RtmpUSBDataLastTxIdx(pAd, QueIdx,TxIdx) */
+
 #define HAL_KickOutTx(pAd, pTxBlk, QueIdx)	\
 			RtmpUSBDataKickOut(pAd, pTxBlk, QueIdx)
 
@@ -344,19 +326,16 @@ typedef struct _CMD_RSP_CONTEXT
 #define HAL_KickOutNullFrameTx(_pAd, _QueIdx, _pNullFrame, _frameLen)	\
 			RtmpUSBNullFrameKickOut(_pAd, _QueIdx, _pNullFrame, _frameLen)
 
-#define GET_TXRING_FREENO(_pAd, _QueIdx)	(_QueIdx) /*(_pAd->TxRing[_QueIdx].TxSwFreeIdx) */
+#define GET_TXRING_FREENO(_pAd, _QueIdx)	(_QueIdx)	/*(_pAd->TxRing[_QueIdx].TxSwFreeIdx) */
 #define GET_MGMTRING_FREENO(_pAd)			(_pAd->MgmtRing.TxSwFreeIdx)
 
-
 /* ----------------- RX Related MACRO ----------------- */
-
 
 /* 
   *	Device Hardware Interface Related MACRO
   */
 #define RTMP_IRQ_INIT(pAd)				do{}while(0)
 #define RTMP_IRQ_ENABLE(pAd)			do{}while(0)
-
 
 /* 
   *	MLME Related MACRO 
@@ -377,7 +356,6 @@ typedef struct _CMD_RSP_CONTEXT
 	{	RTEnqueueInternalCmd(_pAd, CMDTHREAD_802_11_COUNTER_MEASURE, _pEntry, sizeof(MAC_TABLE_ENTRY));	\
 		RTUSBMlmeUp(&(_pAd->mlmeTask));									\
 	}
-
 
 /*
   *	Power Save Related MACRO 
@@ -513,4 +491,3 @@ typedef struct _CMD_RSP_CONTEXT
 #define RTMP_OS_IRQ_RELEASE(_pAd, _NetDev)
 
 #endif /*__MAC_USB_H__ */
-

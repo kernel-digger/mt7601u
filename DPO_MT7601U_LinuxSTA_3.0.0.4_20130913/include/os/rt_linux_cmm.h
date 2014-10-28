@@ -24,15 +24,12 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RT_LINUX_CMM_H__
 #define __RT_LINUX_CMM_H__
 
-
-typedef struct _OS_RSTRUC  {
-	UCHAR *pContent; /* pointer to real structure content */
+typedef struct _OS_RSTRUC {
+	UCHAR *pContent;	/* pointer to real structure content */
 } OS_RSTRUC;
-
 
 /* declare new chipset function here */
 #ifdef OS_ABL_FUNC_SUPPORT
@@ -54,10 +51,8 @@ void Rtmp_Drv_Ops_##_func(VOID *__pDrvOps, VOID *__pNetOps, 	\
 #define RTMP_DRV_OPS_FUNCTION_BODY(_func)						\
 	Rtmp_Drv_Ops_##_func
 
-
-#define xdef_to_str(s)   def_to_str(s) 
+#define xdef_to_str(s)   def_to_str(s)
 #define def_to_str(s)    #s
-
 
 #ifdef RTMP_MAC_USB
 #define RTMP_DRV_NAME	"rtusb" xdef_to_str(RT28xx_MODE)
@@ -78,7 +73,6 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 #endif /* RTMP_MAC_USB */
 
 #endif /* OS_ABL_FUNC_SUPPORT */
-
 
 /*****************************************************************************
  *	OS task related data structure and definitions
@@ -138,7 +132,6 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 
 #endif /* OS_ABL_FUNC_SUPPORT */
 
-
 /*****************************************************************************
  * Timer related definitions and data structures.
  ******************************************************************************/
@@ -170,7 +163,6 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 
 #endif /* OS_ABL_FUNC_SUPPORT */
 
-
 /*****************************************************************************
  *	OS file operation related data structure definitions
  ******************************************************************************/
@@ -191,7 +183,6 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 #define RTMP_OS_FS_INFO				OS_RSTRUC
 
 #endif /* OS_ABL_FUNC_SUPPORT */
-
 
 /*****************************************************************************
  *	OS semaphore related data structure and definitions
@@ -293,7 +284,6 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 
 #endif /* OS_ABL_FUNC_SUPPORT */
 
-
 /*****************************************************************************
  *	OS task related data structure and definitions
  ******************************************************************************/
@@ -304,7 +294,7 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 #define RTMP_NET_TASK_STRUCT		OS_NET_TASK_STRUCT
 #define PRTMP_NET_TASK_STRUCT		POS_NET_TASK_STRUCT
 
-#ifdef WORKQUEUE_BH	
+#ifdef WORKQUEUE_BH
 #define RTMP_OS_TASKLET_SCHE(__pTasklet)							\
 		schedule_work(__pTasklet)
 #define RTMP_OS_TASKLET_INIT(__pAd, __pTasklet, __pFunc, __Data)	\
@@ -325,8 +315,8 @@ RTMP_DECLARE_DRV_OPS_FUNCTION(usb);
 #else
 
 /* rt_linux_cmm.h */
-typedef OS_RSTRUC					RTMP_NET_TASK_STRUCT;
-typedef OS_RSTRUC					*PRTMP_NET_TASK_STRUCT;
+typedef OS_RSTRUC RTMP_NET_TASK_STRUCT;
+typedef OS_RSTRUC *PRTMP_NET_TASK_STRUCT;
 
 #define RTMP_OS_TASKLET_SCHE(__pTasklet)					\
 		RtmpOsTaskletSche(__pTasklet)
@@ -342,9 +332,6 @@ typedef OS_RSTRUC					*PRTMP_NET_TASK_STRUCT;
 
 #endif /* OS_ABL_FUNC_SUPPORT */
 
-
-
-
 /*****************************************************************************
  *	OS definition related data structure and definitions
  ******************************************************************************/
@@ -356,12 +343,12 @@ typedef OS_RSTRUC					*PRTMP_NET_TASK_STRUCT;
 
 typedef struct __RTMP_PCI_CONFIG {
 
-	UINT32	ConfigVendorID;
+	UINT32 ConfigVendorID;
 } RTMP_PCI_CONFIG;
 
 typedef struct __RTMP_USB_CONFIG {
 
-	UINT32	Reserved;
+	UINT32 Reserved;
 } RTMP_USB_CONFIG;
 
 extern RTMP_PCI_CONFIG *pRtmpPciConfig;
@@ -399,12 +386,10 @@ extern RTMP_USB_CONFIG *pRtmpUsbConfig;
 
 #define PCI_MAP_SINGLE					RtmpDrvPciMapSingle
 
-
 /***********************************************************************************
  *	Others
  ***********************************************************************************/
 #define APCLI_IF_UP_CHECK(pAd, ifidx) (RtmpOSNetDevIsUp((pAd)->ApCfg.ApCliTab[(ifidx)].dev) == TRUE)
-
 
 #define RTMP_OS_NETDEV_SET_PRIV		RtmpOsSetNetDevPriv
 #define RTMP_OS_NETDEV_GET_PRIV		RtmpOsGetNetDevPriv
@@ -412,4 +397,3 @@ extern RTMP_USB_CONFIG *pRtmpUsbConfig;
 #define RT_DEV_PRIV_FLAGS_SET		RtmpDevPrivFlagsSet
 
 #endif /* __RT_LINUX_CMM_H__ */
-

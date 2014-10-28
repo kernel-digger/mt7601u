@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef	__RT_CONFIG_H__
 #define	__RT_CONFIG_H__
 
@@ -37,7 +36,6 @@
 #include "rtmp_def.h"
 #include "rtmp_chip.h"
 #include "rtmp_timer.h"
-
 
 #ifdef LINUX
 #ifdef RT_CFG80211_SUPPORT
@@ -78,9 +76,6 @@
 #include "uapsd.h"
 #endif /* UAPSD_SUPPORT */
 
-
-
-
 #ifdef CONFIG_STA_SUPPORT
 #endif /* CONFIG_STA_SUPPORT */
 
@@ -106,11 +101,6 @@
 #endif /* RALINK_ATE */
 #endif /* RALINK_QA */
 
-
-
-
-
-
 #if defined(AP_WSC_INCLUDED) || defined(STA_WSC_INCLUDED)
 #define WSC_INCLUDED
 #endif
@@ -121,13 +111,11 @@
 //#endif /* WDS_SUPPORT */
 //#endif /* CONFIG_AP_SUPPORT */
 
-
 #ifdef APCLI_WPA_SUPPLICANT_SUPPORT
 #ifndef APCLI_SUPPORT
 #error "Build Apcli for being controlled by NetworkManager or wext, please set HAS_APCLI_SUPPORT=y and HAS_APCLI_WPA_SUPPLICANT=y"
 #endif /* APCLI_SUPPORT */
 #endif /* APCLI_WPA_SUPPLICANT_SUPPORT */
-
 
 #ifdef CONFIG_STA_SUPPORT
 #ifdef NATIVE_WPA_SUPPLICANT_SUPPORT
@@ -138,17 +126,9 @@
 
 #endif /* CONFIG_STA_SUPPORT */
 
-
-
 #ifdef IKANOS_VX_1X0
 #include "vr_ikans.h"
 #endif /* IKANOS_VX_1X0 */
-
-
-
-
-
-
 
 #ifdef WFD_SUPPORT
 #include "wfd.h"
@@ -160,9 +140,6 @@
 #ifdef CONFIG_STA_SUPPORT
 #include "sta_cfg.h"
 #endif /* CONFIG_STA_SUPPORT */
-
-
-
 
 #ifdef WORKQUEUE_BH
 #include <linux/workqueue.h>
@@ -176,8 +153,6 @@
 #include "rt_txbf.h"
 #endif /* TXBF_SUPPORT */
 
-
 #include "mac_ral/fce.h"
 
-#endif	/* __RT_CONFIG_H__ */
-
+#endif /* __RT_CONFIG_H__ */

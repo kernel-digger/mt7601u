@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __MAC_PCI_H__
 #define __MAC_PCI_H__
 
@@ -42,10 +41,7 @@
 #include "rtmp_iface.h"
 #include "rtmp_dot11.h"
 
-
-
 #define fRTMP_ADAPTER_NEED_STOP_TX	0
-
 
 /* =================================================================================
 	PCI/RBUS TX / RX Frame Descriptors format
@@ -71,76 +67,73 @@
 	TX descriptor format for Tx Data/Mgmt Rings
 */
 #ifdef RT_BIG_ENDIAN
-typedef	struct GNU_PACKED _TXD_STRUC {
+typedef struct GNU_PACKED _TXD_STRUC {
 	/* Word 0 */
-	UINT32		SDPtr0;
+	UINT32 SDPtr0;
 	/* Word 1 */
-	UINT32		DMADONE:1;
-	UINT32		LastSec0:1;
-	UINT32		SDLen0:14;
-	UINT32		Burst:1;
-	UINT32		LastSec1:1;
-	UINT32		SDLen1:14;
+	UINT32 DMADONE:1;
+	UINT32 LastSec0:1;
+	UINT32 SDLen0:14;
+	UINT32 Burst:1;
+	UINT32 LastSec1:1;
+	UINT32 SDLen1:14;
 	/* Word 2 */
-	UINT32		SDPtr1;
+	UINT32 SDPtr1;
 } TXD_STRUC, *PTXD_STRUC;
 #else
-typedef	struct GNU_PACKED _TXD_STRUC {
-	/* Word	0 */
-	UINT32		SDPtr0;
-	/* Word	1 */
-	UINT32		SDLen1:14;
-	UINT32		LastSec1:1;
-	UINT32		Burst:1;
-	UINT32		SDLen0:14;
-	UINT32		LastSec0:1;
-	UINT32		DMADONE:1;
+typedef struct GNU_PACKED _TXD_STRUC {
+	/* Word 0 */
+	UINT32 SDPtr0;
+	/* Word 1 */
+	UINT32 SDLen1:14;
+	UINT32 LastSec1:1;
+	UINT32 Burst:1;
+	UINT32 SDLen0:14;
+	UINT32 LastSec0:1;
+	UINT32 DMADONE:1;
 	/*Word2 */
-	UINT32		SDPtr1;
+	UINT32 SDPtr1;
 } TXD_STRUC, *PTXD_STRUC;
 #endif
-
 
 /*
 	Rx descriptor format, Rx Ring
 */
 #ifdef RT_BIG_ENDIAN
-typedef	struct GNU_PACKED _RXD_STRUC{
+typedef struct GNU_PACKED _RXD_STRUC {
 	/* Word 0 */
-	UINT32		SDP0;
+	UINT32 SDP0;
 	/* Word 1 */
-	UINT32		DDONE:1;
-	UINT32		LS0:1;
-	UINT32		SDL0:14;
-	UINT32		BURST:1;
-	UINT32		LS1:1;
-	UINT32		SDL1:14;
+	UINT32 DDONE:1;
+	UINT32 LS0:1;
+	UINT32 SDL0:14;
+	UINT32 BURST:1;
+	UINT32 LS1:1;
+	UINT32 SDL1:14;
 	/* Word 2 */
-	UINT32		SDP1;
-}RXD_STRUC, *PRXD_STRUC;
+	UINT32 SDP1;
+} RXD_STRUC, *PRXD_STRUC;
 #else
-typedef	struct GNU_PACKED _RXD_STRUC{
-	/* Word	0 */
-	UINT32		SDP0;
-	/* Word	1 */
-	UINT32		SDL1:14;
-	UINT32		LS1:1;
-	UINT32		BURST:1;
-	UINT32		SDL0:14;
-	UINT32		LS0:1;
-	UINT32		DDONE:1;
-	/* Word	2 */
-	UINT32		SDP1;
-}RXD_STRUC, *PRXD_STRUC;
+typedef struct GNU_PACKED _RXD_STRUC {
+	/* Word 0 */
+	UINT32 SDP0;
+	/* Word 1 */
+	UINT32 SDL1:14;
+	UINT32 LS1:1;
+	UINT32 BURST:1;
+	UINT32 SDL0:14;
+	UINT32 LS0:1;
+	UINT32 DDONE:1;
+	/* Word 2 */
+	UINT32 SDP1;
+} RXD_STRUC, *PRXD_STRUC;
 #endif
-
 
 /* ----------------- EEPROM Related MACRO ----------------- */
 
 /* 8051 firmware image for RT2860 - base address = 0x4000 */
 #define FIRMWARE_IMAGE_BASE     0x2000
-#define MAX_FIRMWARE_IMAGE_SIZE 0x2000    /* 8kbyte */
-
+#define MAX_FIRMWARE_IMAGE_SIZE 0x2000	/* 8kbyte */
 
 /* ----------------- Frimware Related MACRO ----------------- */
 #define RTMP_WRITE_FIRMWARE(_pAd, _pFwImage, _FwLen)		\
@@ -166,42 +159,39 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 		RTMP_IO_WRITE32(_pAd, H2M_MAILBOX_CSR, 0);			\
 	}while(0)
 
-
 /* ----------------- TX Related MACRO ----------------- */
 #define RTMP_START_DEQUEUE(pAd, QueIdx, irqFlags)		do{}while(0)
 #define RTMP_STOP_DEQUEUE(pAd, QueIdx, irqFlags)		do{}while(0)
 
-
 #define RTMP_HAS_ENOUGH_FREE_DESC(pAd, pTxBlk, freeNum, pPacket) \
-		((freeNum) >= (ULONG)(pTxBlk->TotalFragNum + RTMP_GET_PACKET_FRAGMENTS(pPacket) + 3)) /* rough estimate we will use 3 more descriptor. */
+		((freeNum) >= (ULONG)(pTxBlk->TotalFragNum + RTMP_GET_PACKET_FRAGMENTS(pPacket) + 3))	/* rough estimate we will use 3 more descriptor. */
 #define RTMP_RELEASE_DESC_RESOURCE(pAd, QueIdx)	\
 		do{}while(0)
 
 #define NEED_QUEUE_BACK_FOR_AGG(pAd, QueIdx, freeNum, _TxFrameType) \
 		(((freeNum != (TX_RING_SIZE-1)) && (pAd->TxSwQueue[QueIdx].Number == 0)) || (freeNum<3))
 		/*(((freeNum) != (TX_RING_SIZE-1)) && (pAd->TxSwQueue[QueIdx].Number == 1)) */
-		
 
 #define HAL_KickOutMgmtTx(_pAd, _QueIdx, _pPacket, _pSrcBufVA, _SrcBufLen)	\
 			RtmpPCIMgmtKickOut(_pAd, _QueIdx, _pPacket, _pSrcBufVA, _SrcBufLen)
 
 #define HAL_WriteSubTxResource(pAd, pTxBlk, bIsLast, pFreeNumber)	\
-		/* RtmpPCI_WriteSubTxResource(pAd, pTxBlk, bIsLast, pFreeNumber)*/
+				/* RtmpPCI_WriteSubTxResource(pAd, pTxBlk, bIsLast, pFreeNumber) */
 
 #define HAL_WriteTxResource(pAd, pTxBlk,bIsLast, pFreeNumber)	\
 			RtmpPCI_WriteSingleTxResource(pAd, pTxBlk, bIsLast, pFreeNumber)
 
 #define HAL_WriteFragTxResource(pAd, pTxBlk, fragNum, pFreeNumber) \
 			RtmpPCI_WriteFragTxResource(pAd, pTxBlk, fragNum, pFreeNumber)
-			
+
 #define HAL_WriteMultiTxResource(pAd, pTxBlk,frameNum, pFreeNumber)	\
 			RtmpPCI_WriteMultiTxResource(pAd, pTxBlk, frameNum, pFreeNumber)
-	
+
 #define HAL_FinalWriteTxResource(_pAd, _pTxBlk, _TotalMPDUSize, _FirstTxIdx)	\
 			RtmpPCI_FinalWriteTxResource(_pAd, _pTxBlk, _TotalMPDUSize, _FirstTxIdx)
 
 #define HAL_LastTxIdx(_pAd, _QueIdx,_LastTxIdx) \
-			/*RtmpPCIDataLastTxIdx(_pAd, _QueIdx,_LastTxIdx)*/
+				/*RtmpPCIDataLastTxIdx(_pAd, _QueIdx,_LastTxIdx) */
 
 #ifdef RLT_MAC
 #define HAL_KickOutTx(_pAd, _pTxBlk, _QueIdx)	\
@@ -215,13 +205,12 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 
 #define HAL_KickOutNullFrameTx(_pAd, _QueIdx, _pNullFrame, _frameLen)	\
 			MiniportMMRequest(_pAd, _QueIdx, _pNullFrame, _frameLen)
-			
+
 #define GET_TXRING_FREENO(_pAd, _QueIdx) \
 	(_pAd->TxRing[_QueIdx].TxSwFreeIdx > _pAd->TxRing[_QueIdx].TxCpuIdx)	? \
 			(_pAd->TxRing[_QueIdx].TxSwFreeIdx - _pAd->TxRing[_QueIdx].TxCpuIdx - 1) \
 			 :	\
 			(_pAd->TxRing[_QueIdx].TxSwFreeIdx + TX_RING_SIZE - _pAd->TxRing[_QueIdx].TxCpuIdx - 1);
-
 
 #define GET_MGMTRING_FREENO(_pAd) \
 	(_pAd->MgmtRing.TxSwFreeIdx > _pAd->MgmtRing.TxCpuIdx)	? \
@@ -229,9 +218,7 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 			 :	\
 			(_pAd->MgmtRing.TxSwFreeIdx + MGMT_RING_SIZE - _pAd->MgmtRing.TxCpuIdx - 1);
 
-
 /* ----------------- RX Related MACRO ----------------- */
-
 
 /* ----------------- ASIC Related MACRO ----------------- */
 /* reset MAC of a station entry to 0x000000000000 */
@@ -245,7 +232,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 #define RTMP_UPDATE_PROTECT(_pAd, _OperationMode, _SetMask, _bDisableBGProtect, _bNonGFExist)	\
 	AsicUpdateProtect(pAd, _OperationMode, _SetMask, _bDisableBGProtect, _bNonGFExist);
 
-
 /* Insert the BA bitmap to ASIC for the Wcid entry */
 #define RTMP_ADD_BA_SESSION_TO_ASIC(_pAd, _Aid, _TID)	\
 		do{					\
@@ -255,7 +241,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 			_Value |= (0x10000<<(_TID));	\
 			RTMP_IO_WRITE32((_pAd), _Offset, _Value);\
 		}while(0)
-
 
 /* Remove the BA bitmap from ASIC for the Wcid entry */
 /*		bitmap field starts at 0x10000 in ASIC WCID table */
@@ -267,7 +252,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 			_Value &= (~(0x10000 << (_TID)));				\
 			RTMP_IO_WRITE32((_pAd), _Offset, _Value);			\
 		}while(0)
-
 
 /* ----------------- Interface Related MACRO ----------------- */
 
@@ -286,7 +270,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 		RTMP_IO_WRITE32((_pAd), INT_MASK_CSR, (_pAd)->int_enable_reg /*DELAYINTMASK*/);     /* 1:enable */	\
 		RTMP_SET_FLAG((_pAd), fRTMP_ADAPTER_INTERRUPT_ACTIVE);	\
 	}while(0)
-
 
 #ifdef RLT_MAC
 #define RTMP_IRQ_INIT(pAd)	\
@@ -320,8 +303,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 		RTMP_INT_UNLOCK(&pAd->irq_lock, _irqFlags);\
 }
 
-
-
 /* ----------------- MLME Related MACRO ----------------- */
 #define RTMP_MLME_HANDLER(pAd)			MlmeHandler(pAd)
 
@@ -332,10 +313,9 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 
 #define RTMP_HANDLE_COUNTER_MEASURE(_pAd, _pEntry)\
 		HandleCounterMeasure(_pAd, _pEntry)
-		
+
 /* ----------------- Power Save Related MACRO ----------------- */
 #define RTMP_PS_POLL_ENQUEUE(pAd)				EnqueuePsPoll(pAd)
-
 
 /* For RTMPPCIePowerLinkCtrlRestore () function */
 #define RESTORE_HALT		1
@@ -349,7 +329,6 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 #define CID1MASK		0x0000ff00
 #define CID2MASK		0x00ff0000
 #define CID3MASK		0xff000000
-
 
 #ifdef CONFIG_STA_SUPPORT
 #define RTMP_STA_FORCE_WAKEUP(pAd, bFromTx) \
@@ -415,4 +394,3 @@ typedef	struct GNU_PACKED _RXD_STRUC{
 #endif /* PCI_MSI_SUPPORT */
 
 #endif /*__MAC_PCI_H__ */
-

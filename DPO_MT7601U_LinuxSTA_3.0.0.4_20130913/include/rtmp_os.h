@@ -24,17 +24,16 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_OS_H__
 #define __RTMP_OS_H__
 
 /* Driver Operators */
-typedef int (*RTMP_PRINTK)(const char *ftm, ...);
-typedef int (*RTMP_SNPRINTF)(char *, ULONG, const char *ftm, ...);
+typedef int (*RTMP_PRINTK) (const char *ftm, ...);
+typedef int (*RTMP_SNPRINTF) (char *, ULONG, const char *ftm, ...);
 
 typedef struct _RTMP_OS_ABL_OPS {
-	int (*ra_printk)(const char *ftm, ...);
-	int (*ra_snprintf)(char *, ULONG, const char *ftm, ...);
+	int (*ra_printk) (const char *ftm, ...);
+	int (*ra_snprintf) (char *, ULONG, const char *ftm, ...);
 } RTMP_OS_ABL_OPS;
 
 extern RTMP_OS_ABL_OPS *pRaOsOps;
@@ -54,10 +53,6 @@ extern RTMP_OS_ABL_OPS *pRaOsOps;
 #endif /* RTMP_MODULE_OS */
 #endif /* OS_ABL_FUNC_SUPPORT */
 #endif /* LINUX */
-
-
-
-
 
 /*
 	This data structure mainly strip some callback function defined in 
@@ -80,7 +75,6 @@ typedef struct _RTMP_OS_NETDEV_OP_HOOK_ {
 	unsigned char devName[16];
 	unsigned char needProtcted;
 } RTMP_OS_NETDEV_OP_HOOK, *PRTMP_OS_NETDEV_OP_HOOK;
-
 
 typedef enum _RTMP_TASK_STATUS_ {
 	RTMP_TASK_STAT_UNKNOWN = 0,
@@ -113,8 +107,7 @@ typedef struct _RTMP_OS_TASK_ {
 } OS_TASK;
 #endif /* RTMP_MODULE_OS || ! OS_ABL_FUNC_SUPPORT */
 
-int RtmpOSIRQRequest(
-	IN PNET_DEV pNetDev);
+int RtmpOSIRQRequest(IN PNET_DEV pNetDev);
 /*int RtmpOSIRQRelease(IN PNET_DEV pNetDev); */
 
 #ifndef OS_ABL_SUPPORT

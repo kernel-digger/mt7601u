@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef _AP_DIVERSITY_H_
 #define _AP_DIVERSITY_H_
 
@@ -84,7 +83,6 @@
 	}                   \
 }
 
-
 /*
  * proc fs related macros.
  */
@@ -127,16 +125,12 @@ static INT x##Write(struct file *file, const char *buffer, \
 /*
  * function prototype
  */
-VOID RT3XXX_AntDiversity_Init(
-    IN RTMP_ADAPTER *pAd);
+VOID RT3XXX_AntDiversity_Init(IN RTMP_ADAPTER * pAd);
 
-VOID RT3XXX_AntDiversity_Fini(
-    IN RTMP_ADAPTER *pAd);
+VOID RT3XXX_AntDiversity_Fini(IN RTMP_ADAPTER * pAd);
 
-VOID AntDiversity_Update_Rssi_Sample(
-	IN RTMP_ADAPTER *pAd,
-	IN RSSI_SAMPLE *pRssi,
-	IN RXWI_STRUC *pRxWI);
-                        
+VOID AntDiversity_Update_Rssi_Sample(IN RTMP_ADAPTER * pAd,
+				     IN RSSI_SAMPLE * pRssi,
+				     IN RXWI_STRUC * pRxWI);
 
 #endif

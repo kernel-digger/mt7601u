@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RT_LED_H__
 #define __RT_LED_H__
 
@@ -45,7 +44,7 @@
 #define LED_MODE_WPS_LOW_POLARITY		4	/* Same as LED mode 1; except that make ACT steady on during WPS period */
 #define LED_MODE_WPS_HIGH_POLARITY		5	/* Same as LED mode 1; except that make ACT steady on during WPS period */
 /*#define LED_MODE_SIGNAL_STREGTH		8   // EEPROM define =8 */
-#define LED_MODE_SIGNAL_STREGTH			0x40 /* EEPROM define = 64 */
+#define LED_MODE_SIGNAL_STREGTH			0x40	/* EEPROM define = 64 */
 
 /* Driver LED Status */
 #define LED_LINK_DOWN			0
@@ -68,33 +67,30 @@
 #define LINK_STATUS_POWER_UP		0x04
 #define LINK_STATUS_HW_CONTROL		0x00
 
-
 #define ACTIVE_LOW 	0
 #define ACTIVE_HIGH 1
 
 /* */
 /* MCU_LEDCS: MCU LED Control Setting. */
 /* */
-typedef union  _MCU_LEDCS_STRUC {
-	struct	{
+typedef union _MCU_LEDCS_STRUC {
+	struct {
 #ifdef RT_BIG_ENDIAN
-		UCHAR		Polarity:1;
-		UCHAR		LedMode:7;
+		UCHAR Polarity:1;
+		UCHAR LedMode:7;
 #else
-		UCHAR		LedMode:7;		
-		UCHAR		Polarity:1;
-#endif /* RT_BIG_ENDIAN */
+		UCHAR LedMode:7;
+		UCHAR Polarity:1;
+#endif				/* RT_BIG_ENDIAN */
 	} field;
-	UCHAR				word;
+	UCHAR word;
 } MCU_LEDCS_STRUC, *PMCU_LEDCS_STRUC;
 
-void RTMPGetLEDSetting(IN RTMP_ADAPTER *pAd);
-void RTMPInitLEDMode(IN RTMP_ADAPTER *pAd);
-void RTMPExitLEDMode(IN RTMP_ADAPTER *pAd);
+void RTMPGetLEDSetting(IN RTMP_ADAPTER * pAd);
+void RTMPInitLEDMode(IN RTMP_ADAPTER * pAd);
+void RTMPExitLEDMode(IN RTMP_ADAPTER * pAd);
 
-VOID RTMPSetLEDStatus(
-	IN PRTMP_ADAPTER 	pAd, 
-	IN UCHAR			Status);
+VOID RTMPSetLEDStatus(IN PRTMP_ADAPTER pAd, IN UCHAR Status);
 
 #ifdef RTMP_MAC_USB
 #define RTMPSetLED(pAd, Status)	\
@@ -106,29 +102,22 @@ do{								\
 	else\
 		RTEnqueueInternalCmd(pAd, CMDTHREAD_SET_LED_STATUS, &LEDStatus, sizeof(LEDStatus));	\
 }while(0)
-	
+
 #endif /* RTMP_MAC_USB */
 
+VOID RTMPSetSignalLED(IN PRTMP_ADAPTER pAd, IN NDIS_802_11_RSSI Dbm);
 
-VOID RTMPSetSignalLED(
-	IN PRTMP_ADAPTER 	pAd, 
-	IN NDIS_802_11_RSSI Dbm);
+typedef struct _LED_CONTROL {
+	MCU_LEDCS_STRUC MCULedCntl;	/* LED Mode EEPROM 0x3b */
+	USHORT LedAGCfg;	/* LED A/G Configuration EEPROM 0x3c */
+	USHORT LedACTCfg;	/* LED ACT Configuration EEPROM 0x3e */
+	USHORT LedPolarity;	/* LED A/G/ACT polarity EEPROM 0x40 */
+	UCHAR LedIndicatorStrength;
+	UCHAR RssiSingalstrengthOffet;
+	BOOLEAN bLedOnScanning;
+	UCHAR LedStatus;
+} LED_CONTROL, *PLED_CONTROL;
 
-
-
-typedef struct _LED_CONTROL
-{
-	MCU_LEDCS_STRUC		MCULedCntl; /* LED Mode EEPROM 0x3b */
-	USHORT				LedAGCfg;	/* LED A/G Configuration EEPROM 0x3c */
-	USHORT				LedACTCfg;	/* LED ACT Configuration EEPROM 0x3e */
-	USHORT				LedPolarity;/* LED A/G/ACT polarity EEPROM 0x40 */
-	UCHAR				LedIndicatorStrength;
-	UCHAR				RssiSingalstrengthOffet;
-	BOOLEAN				bLedOnScanning;
-	UCHAR				LedStatus;
-}LED_CONTROL, *PLED_CONTROL;
-
-void RTMPStartLEDMode(IN RTMP_ADAPTER *pAd);
+void RTMPStartLEDMode(IN RTMP_ADAPTER * pAd);
 
 #endif /* __RT_LED_H__ */
-

@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTMP_OS_ABL_H__
 #define __RTMP_OS_ABL_H__
 
@@ -75,4 +74,3 @@
 #endif /* OS_ABL_FUNC_SUPPORT */
 
 #endif /* __RTMP_OS_ABL_H__ */
-

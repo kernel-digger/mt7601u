@@ -24,7 +24,6 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __RTUSB_IO_H__
 #define __RTUSB_IO_H__
 
@@ -48,7 +47,6 @@
 #define CMDTHREAD_QKERIODIC_EXECUT					0x0D73010A
 #endif /* CONFIG_STA_SUPPORT */
 
-
 #define CMDTHREAD_SET_LED_STATUS				0x0D730111	/* Set WPS LED status (LED_WPS_XXX). */
 
 /* Security related */
@@ -61,7 +59,6 @@
 #ifdef CONFIG_STA_SUPPORT
 #define CMDTHREAD_SET_PORT_SECURED					0x0D730119
 #endif /* CONFIG_STA_SUPPORT */
-
 
 /* add by johnli, fix "in_interrupt" error when call "MacTableDeleteEntry" in Rx tasklet */
 #define CMDTHREAD_UPDATE_PROTECT					0x0D73011B
@@ -76,18 +73,13 @@
 #endif /* RT_CFG80211_SUPPORT */
 #endif /* LINUX */
 
-
-
-
 #define CMDTHREAD_RESPONSE_EVENT_CALLBACK			0x0D730123
-
 
 typedef struct _CMDHandler_TLV {
 	USHORT Offset;
 	USHORT Length;
 	UCHAR DataFirst;
 } CMDHandler_TLV, *PCMDHandler_TLV;
-
 
 typedef struct _RT_SET_ASIC_WCID {
 	ULONG WCID;		/* mechanism for rekeying: 0:disable, 1: time-based, 2: packet-based */
@@ -131,9 +123,9 @@ typedef struct _RT_ASIC_SHARED_KEY {
 
 typedef struct _RT_ASIC_PROTECT_INFO {
 	USHORT OperationMode;
-	UCHAR SetMask;	
+	UCHAR SetMask;
 	BOOLEAN bDisableBGProtect;
-	BOOLEAN bNonGFExist;	
+	BOOLEAN bNonGFExist;
 } RT_ASIC_PROTECT_INFO, *PRT_ASIC_PROTECT_INFO;
 
 /******************************************************************************

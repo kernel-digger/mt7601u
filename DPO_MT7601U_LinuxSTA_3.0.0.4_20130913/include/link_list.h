@@ -24,33 +24,27 @@
  *                                                                       *
  *************************************************************************/
 
-
 #ifndef __LINK_LIST_H__
 #define __LINK_LIST_H__
 
-typedef struct _LIST_ENTRY
-{
+typedef struct _LIST_ENTRY {
 	struct _LIST_ENTRY *pNext;
 } LIST_ENTRY, *PLIST_ENTRY;
 
-typedef struct _LIST_HEADR
-{
+typedef struct _LIST_HEADR {
 	PLIST_ENTRY pHead;
 	PLIST_ENTRY pTail;
 	UCHAR size;
 } LIST_HEADER, *PLIST_HEADER;
 
-static inline VOID initList(
-	IN PLIST_HEADER pList)
+static inline VOID initList(IN PLIST_HEADER pList)
 {
 	pList->pHead = pList->pTail = NULL;
 	pList->size = 0;
 	return;
 }
 
-static inline VOID insertTailList(
-	IN PLIST_HEADER pList,
-	IN PLIST_ENTRY pEntry)
+static inline VOID insertTailList(IN PLIST_HEADER pList, IN PLIST_ENTRY pEntry)
 {
 	pEntry->pNext = NULL;
 	if (pList->pTail)
@@ -63,15 +57,13 @@ static inline VOID insertTailList(
 	return;
 }
 
-static inline PLIST_ENTRY removeHeadList(
-	IN PLIST_HEADER pList)
+static inline PLIST_ENTRY removeHeadList(IN PLIST_HEADER pList)
 {
 	PLIST_ENTRY pNext;
 	PLIST_ENTRY pEntry;
 
 	pEntry = pList->pHead;
-	if (pList->pHead != NULL)
-	{
+	if (pList->pHead != NULL) {
 		pNext = pList->pHead->pNext;
 		pList->pHead = pNext;
 		if (pNext == NULL)
@@ -81,28 +73,25 @@ static inline PLIST_ENTRY removeHeadList(
 	return pEntry;
 }
 
-static inline int getListSize(
-	IN PLIST_HEADER pList)
+static inline int getListSize(IN PLIST_HEADER pList)
 {
 	return pList->size;
 }
 
-static inline PLIST_ENTRY delEntryList(
-	IN PLIST_HEADER pList,
-	IN PLIST_ENTRY pEntry)
+static inline PLIST_ENTRY delEntryList(IN PLIST_HEADER pList,
+				       IN PLIST_ENTRY pEntry)
 {
 	PLIST_ENTRY pCurEntry;
 	PLIST_ENTRY pPrvEntry;
 
-	if(pList->pHead == NULL)
+	if (pList->pHead == NULL)
 		return NULL;
 
-	if(pEntry == pList->pHead)
-	{
+	if (pEntry == pList->pHead) {
 		pCurEntry = pList->pHead;
 		pList->pHead = pCurEntry->pNext;
 
-		if(pList->pHead == NULL)
+		if (pList->pHead == NULL)
 			pList->pTail = NULL;
 
 		pList->size--;
@@ -111,13 +100,11 @@ static inline PLIST_ENTRY delEntryList(
 
 	pPrvEntry = pList->pHead;
 	pCurEntry = pPrvEntry->pNext;
-	while(pCurEntry != NULL)
-	{
-		if (pEntry == pCurEntry)
-		{
+	while (pCurEntry != NULL) {
+		if (pEntry == pCurEntry) {
 			pPrvEntry->pNext = pCurEntry->pNext;
 
-			if(pEntry == pList->pTail)
+			if (pEntry == pList->pTail)
 				pList->pTail = pPrvEntry;
 
 			pList->size--;
@@ -130,12 +117,10 @@ static inline PLIST_ENTRY delEntryList(
 	return pCurEntry;
 }
 
-
-typedef struct _DL_LIST
-{
+typedef struct _DL_LIST {
 	struct _DL_LIST *Next;
 	struct _DL_LIST *Prev;
-}DL_LIST, *PDL_LIST;
+} DL_LIST, *PDL_LIST;
 
 static inline void DlListInit(struct _DL_LIST *List)
 {
@@ -148,7 +133,7 @@ static inline void DlListAdd(struct _DL_LIST *List, struct _DL_LIST *Item)
 	Item->Next = List->Next;
 	Item->Prev = List;
 	List->Next->Prev = Item;
-	List->Next = Item; 	
+	List->Next = Item;
 }
 
 static inline void DlListAddTail(struct _DL_LIST *List, struct _DL_LIST *Item)
@@ -173,13 +158,12 @@ static inline unsigned int DlListLen(struct _DL_LIST *List)
 {
 	struct _DL_LIST *Item;
 	unsigned int Count = 0;
-	
+
 	for (Item = List->Next; Item != List; Item = Item->Next)
 		Count++;
-	
+
 	return Count;
 }
-
 
 #ifndef offsetof
 #define offsetof(type, member) ((long) &((type *) 0)->member)
@@ -203,6 +187,4 @@ static inline unsigned int DlListLen(struct _DL_LIST *List)
          &item->member != (list); \
          item = n, n = DlListEntry(n->member.Next, type, member))
 
-
 #endif /* ___LINK_LIST_H__ */
-

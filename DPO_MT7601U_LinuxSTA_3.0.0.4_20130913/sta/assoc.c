@@ -62,6 +62,10 @@ UCHAR CipherWpa2Template[] = {
 	
 	==========================================================================
  */
+/*
+初始化与关联相关的状态变迁函数
+初始化与关联相关的定时器
+*/
 VOID AssocStateMachineInit(
 	IN PRTMP_ADAPTER pAd,
 	IN STATE_MACHINE *S,
@@ -70,6 +74,8 @@ VOID AssocStateMachineInit(
 	StateMachineInit(S, Trans, MAX_ASSOC_STATE, MAX_ASSOC_MSG,
 			 (STATE_MACHINE_FUNC) Drop, ASSOC_IDLE,
 			 ASSOC_MACHINE_BASE);
+
+	/* 初始化不同状态时,收到不同消息时,所执行的函数 */
 
 	/* first column */
 	StateMachineSetAction(S, ASSOC_IDLE, MT2_MLME_ASSOC_REQ,
@@ -253,6 +259,7 @@ VOID DisassocTimeout(
 
 	==========================================================================
  */
+/* 收到关联请求时的处理函数 */
 VOID MlmeAssocReqAction(
 	IN PRTMP_ADAPTER pAd,
 	IN MLME_QUEUE_ELEM *Elem)

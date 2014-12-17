@@ -54,6 +54,9 @@ REG_PAIR   BBPRegTable[] = {
 };
 #define	NUM_BBP_REG_PARMS	(sizeof(BBPRegTable) / sizeof(REG_PAIR))
 
+/*
+BBP（Base Band Processing board）是基带处理板
+*/
 
 NDIS_STATUS NICInitBBP(RTMP_ADAPTER *pAd)
 {

@@ -4683,6 +4683,9 @@ VOID StateMachineInit(IN STATE_MACHINE * S,
  IRQL = PASSIVE_LEVEL
  
  */
+/*
+设置状态机中状态对应的函数
+*/
 VOID StateMachineSetAction(IN STATE_MACHINE * S,
 			   IN ULONG St,
 			   IN ULONG Msg, IN STATE_MACHINE_FUNC Func)

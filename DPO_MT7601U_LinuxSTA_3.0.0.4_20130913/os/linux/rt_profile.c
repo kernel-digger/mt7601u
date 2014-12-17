@@ -127,6 +127,7 @@ NDIS_STATUS	RTMPReadParametersHook(
 #endif /* MULTIPLE_CARD_SUPPORT */
 	}
 
+	/* ≈‰÷√Œƒº˛ */
 	if (src && *src)
 	{
 		RtmpOSFSInfoChange(&osFSInfo, TRUE);

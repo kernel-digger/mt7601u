@@ -1181,6 +1181,7 @@ typedef struct {
 	ULONG ClientStatusFlags;
 } BSS_ENTRY, *PBSS_ENTRY;
 
+/* AP信息表 */
 typedef struct {
 	UCHAR BssNr;
 	UCHAR BssOverlapNr;
@@ -1216,10 +1217,23 @@ typedef struct _MLME_QUEUE {
 typedef VOID(*STATE_MACHINE_FUNC) (VOID * pAd, MLME_QUEUE_ELEM * Elem);
 
 typedef struct _STATE_MACHINE {
+	/*
+	   如 ASSOC_MACHINE_BASE
+	*/
 	ULONG Base;
+	/* 状态个数
+	   如 MAX_ASSOC_STATE
+	*/
 	ULONG NrState;
+	/* 消息个数
+	   如 MAX_ASSOC_MSG
+	*/
 	ULONG NrMsg;
+	/* 当前状态 */
 	ULONG CurrState;
+	/* 函数指针数组
+	   根据当前状态和收到的消息,找到数组下标,取对应的处理函数指针
+	*/
 	STATE_MACHINE_FUNC *TransFunc;
 } STATE_MACHINE, *PSTATE_MACHINE;
 

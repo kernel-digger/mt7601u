@@ -269,6 +269,7 @@ void DisplayTxAgg(RTMP_ADAPTER * pAd);
 #define RTMP_SET_FLAG(_M, _F)       ((_M)->Flags |= (_F))
 #define RTMP_CLEAR_FLAG(_M, _F)     ((_M)->Flags &= ~(_F))
 #define RTMP_CLEAR_FLAGS(_M)        ((_M)->Flags = 0)
+/* 返回 1 - 置位了, 0 - 没有置位 */
 #define RTMP_TEST_FLAG(_M, _F)      (((_M)->Flags & (_F)) != 0)
 #define RTMP_TEST_FLAGS(_M, _F)     (((_M)->Flags & (_F)) == (_F))
 /* Macro for power save flag. */
@@ -3068,7 +3069,11 @@ struct _RTMP_ADAPTER {
 
 	/* configuration: read from Registry & E2PROM */
 	BOOLEAN bLocalAdminMAC;	/* Use user changed MAC */
+	/* EEPROM中读取出来的MAC地址
+	   见函数NICReadEEPROMParameters
+	*/
 	UCHAR PermanentAddress[MAC_ADDR_LEN];	/* Factory default MAC address */
+	/* 定制的MAC地址 */
 	UCHAR CurrentAddress[MAC_ADDR_LEN];	/* User changed MAC address */
 
 	/* ------------------------------------------------------ */

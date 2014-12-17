@@ -1455,6 +1455,7 @@ INT eFuseLoadEEPROM(IN PRTMP_ADAPTER pAd)
 	src = EFUSE_BUFFER_PATH;
 	DBGPRINT(RT_DEBUG_TRACE, ("FileName=%s\n", src));
 
+	/* 为了可以在内核中读取文件 */
 	RtmpOSFSInfoChange(&osFSInfo, TRUE);
 
 	if (src && *src) {
@@ -1462,6 +1463,9 @@ INT eFuseLoadEEPROM(IN PRTMP_ADAPTER pAd)
 		if (IS_FILE_OPEN_ERR(srcf)) {
 			DBGPRINT(RT_DEBUG_ERROR,
 				 ("--> Error opening %s\n", src));
+			/* 这里直接返回?
+			   应该调用RtmpOSFSInfoChange
+			*/
 			return FALSE;
 		} else {
 
@@ -1483,6 +1487,9 @@ INT eFuseLoadEEPROM(IN PRTMP_ADAPTER pAd)
 
 	} else {
 		DBGPRINT(RT_DEBUG_ERROR, ("--> Error src  or srcf is null\n"));
+		/* 这里直接返回?
+		   应该调用RtmpOSFSInfoChange
+		*/
 		return FALSE;
 
 	}
@@ -1494,6 +1501,7 @@ INT eFuseLoadEEPROM(IN PRTMP_ADAPTER pAd)
 			 ("--> Error %d closing %s\n", -retval, src));
 	}
 
+	/* 将文件信息改回去 */
 	RtmpOSFSInfoChange(&osFSInfo, FALSE);
 
 	return TRUE;

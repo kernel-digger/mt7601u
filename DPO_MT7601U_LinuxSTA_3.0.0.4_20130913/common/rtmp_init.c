@@ -316,6 +316,11 @@ NDIS_STATUS RTMPAllocAdapterBlock(IN PVOID handle, OUT VOID ** ppAdapter)
 }
 
 /*
+EEPROM (Electrically Erasable Programmable Read-Only Memory)，
+带电可擦可编程只读存储器--一种掉电后数据不丢失的存储芯片。 
+*/
+
+/*
 	========================================================================
 	
 	Routine Description:

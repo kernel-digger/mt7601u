@@ -1451,6 +1451,7 @@ void RTMPSetCountryCode(RTMP_ADAPTER * pAd, PSTRING CountryCode)
 		 ("CountryCode=%s\n", pAd->CommonCfg.CountryCode));
 }
 
+/* ╫БнЖеДжцнд╪Ч */
 NDIS_STATUS RTMPSetProfileParameters(IN RTMP_ADAPTER * pAd, IN PSTRING pBuffer)
 {
 	PSTRING tmpbuf;
